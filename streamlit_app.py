@@ -184,17 +184,26 @@ def load_custom_css():
     # Core CSS optimizations inline for immediate rendering
     css_html = """
     <style>
-    /* SIH 2025 - Critical CSS for immediate rendering */
+    /* SIH 2025 - Farm-Inspired Color Palette */
     :root {
-        --primary-teal: #208793;
-        --primary-teal-light: #32a5b3;
-        --primary-teal-dark: #1a6b75;
-        --bg-surface: rgba(32, 135, 147, 0.05);
-        --bg-card: rgba(32, 135, 147, 0.1);
-        --border-light: rgba(32, 135, 147, 0.2);
-        --success: #10b981;
-        --warning: #f59e0b;
-        --error: #ef4444;
+        --farm-green: #4a7c59;
+        --farm-green-light: #68a674;
+        --farm-green-dark: #3d6b4a;
+        --farm-yellow: #f4b942;
+        --farm-yellow-light: #f7c95a;
+        --farm-yellow-dark: #e6a73a;
+        --farm-brown: #8b5a3c;
+        --farm-brown-light: #a67554;
+        --farm-brown-dark: #74502f;
+        --farm-blue: #4682b4;
+        --farm-blue-light: #6ba3d0;
+        --farm-blue-dark: #3a6b8c;
+        --bg-surface: rgba(74, 124, 89, 0.08);
+        --bg-card: rgba(244, 185, 66, 0.12);
+        --border-light: rgba(74, 124, 89, 0.25);
+        --success: #4a7c59;
+        --warning: #f4b942;
+        --error: #dc3545;
     }
     
     /* Performance optimizations */
@@ -251,7 +260,7 @@ def load_custom_css():
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
     }
     
-    /* Metrics styling */
+    /* Metrics styling with farm colors */
     .stMetric {
         background: var(--bg-surface) !important;
         padding: 1rem !important;
@@ -260,7 +269,7 @@ def load_custom_css():
     }
     
     .stMetric > div > div {
-        color: var(--primary-teal) !important;
+        color: var(--farm-green) !important;
         font-weight: 700 !important;
     }
     
@@ -273,7 +282,7 @@ def load_custom_css():
         border: 1px solid var(--border-light);
     }
     .stTabs [aria-selected="true"] {
-        background: var(--primary-teal) !important;
+        background: var(--farm-green) !important;
         color: white !important;
     }
     
@@ -294,17 +303,18 @@ def load_custom_css():
     .stSuccess { border-radius: 8px !important; border-left: 4px solid var(--success) !important; }
     .stError { border-radius: 8px !important; border-left: 4px solid var(--error) !important; }
     .stWarning { border-radius: 8px !important; border-left: 4px solid var(--warning) !important; }
-    .stInfo { border-radius: 8px !important; border-left: 4px solid var(--primary-teal) !important; }
+    .stInfo { border-radius: 8px !important; border-left: 4px solid var(--farm-blue) !important; }
     
     /* Custom utility classes */
+    /* Hero header with farm-inspired gradient */
     .hero-header {
-        background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-dark) 100%);
+        background: linear-gradient(135deg, var(--farm-green) 0%, var(--farm-green-dark) 50%, var(--farm-brown) 100%);
         color: white;
         padding: 2rem;
         border-radius: 12px;
         margin-bottom: 2rem;
         text-align: center;
-        box-shadow: 0 4px 16px rgba(32, 135, 147, 0.3);
+        box-shadow: 0 4px 16px rgba(74, 124, 89, 0.3);
     }
     
     .result-card {
@@ -321,7 +331,7 @@ def load_custom_css():
         padding: 1rem;
         border-radius: 8px;
         margin: 1rem 0;
-        border-left: 4px solid var(--primary-teal);
+        border-left: 4px solid var(--farm-yellow);
     }
     
     .footer-card {
@@ -421,9 +431,149 @@ def get_image_transform():
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
 
-def predict_breed_ml(image, model, breed_classes, device):
-    """ML-based breed prediction"""
+def validate_cattle_image(image):
+    """
+    Validate if the uploaded image contains cattle/buffalo using multiple detection methods
+    Returns: (is_cattle: bool, confidence: float, reason: str)
+    """
     try:
+        import cv2
+        import numpy as np
+        from PIL import Image
+        
+        # Convert PIL image to OpenCV format
+        opencv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+        
+        # Method 1: Basic image analysis for cattle characteristics
+        gray = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2GRAY)
+        
+        # Check image quality and content
+        height, width = gray.shape
+        
+        # Image quality checks
+        if width < 100 or height < 100:
+            return False, 0.0, "Image resolution too low for cattle detection"
+        
+        # Calculate image statistics
+        mean_brightness = np.mean(gray)
+        if mean_brightness < 10 or mean_brightness > 250:
+            return False, 0.0, "Image too dark or overexposed"
+        
+        # Check for reasonable contrast (cattle have varied textures)
+        contrast = np.std(gray)
+        if contrast < 15:
+            return False, 0.1, "Image lacks sufficient detail for cattle analysis"
+        
+        # Method 2: Edge detection for animal-like shapes
+        edges = cv2.Canny(gray, 50, 150)
+        edge_density = np.sum(edges > 0) / (width * height)
+        
+        # Method 3: Color analysis for typical cattle colors
+        hsv = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2HSV)
+        
+        # Check for cattle-typical colors (browns, blacks, whites, grays)
+        # Brown range
+        brown_lower = np.array([10, 50, 20])
+        brown_upper = np.array([20, 255, 200])
+        brown_mask = cv2.inRange(hsv, brown_lower, brown_upper)
+        
+        # Black/gray range  
+        gray_lower = np.array([0, 0, 0])
+        gray_upper = np.array([180, 30, 100])
+        gray_mask = cv2.inRange(hsv, gray_lower, gray_upper)
+        
+        # White range
+        white_lower = np.array([0, 0, 200])
+        white_upper = np.array([180, 30, 255])
+        white_mask = cv2.inRange(hsv, white_lower, white_upper)
+        
+        # Calculate color coverage
+        total_pixels = width * height
+        brown_ratio = np.sum(brown_mask > 0) / total_pixels
+        gray_ratio = np.sum(gray_mask > 0) / total_pixels  
+        white_ratio = np.sum(white_mask > 0) / total_pixels
+        cattle_color_ratio = brown_ratio + gray_ratio + white_ratio
+        
+        # Method 4: Aspect ratio check (cattle are typically wider than tall)
+        aspect_ratio = width / height
+        
+        # Scoring system
+        confidence_score = 0.0
+        reasons = []
+        
+        # Edge density scoring (animals have moderate edge density)
+        if 0.05 <= edge_density <= 0.25:
+            confidence_score += 0.3
+            reasons.append("Good edge structure detected")
+        elif edge_density > 0.25:
+            confidence_score += 0.1
+            reasons.append("High detail image")
+        
+        # Color scoring (cattle typically have earth tones)
+        if cattle_color_ratio > 0.3:
+            confidence_score += 0.4
+            reasons.append("Cattle-typical colors detected")
+        elif cattle_color_ratio > 0.15:
+            confidence_score += 0.2
+            reasons.append("Some animal-like colors present")
+        
+        # Aspect ratio scoring
+        if 0.8 <= aspect_ratio <= 2.5:
+            confidence_score += 0.2
+            reasons.append("Appropriate aspect ratio")
+        
+        # Contrast scoring
+        if contrast > 25:
+            confidence_score += 0.1
+            reasons.append("Good image contrast")
+        
+        # Final decision
+        is_cattle = confidence_score >= 0.5
+        reason = "; ".join(reasons) if reasons else "Insufficient cattle characteristics"
+        
+        return is_cattle, confidence_score, reason
+        
+    except ImportError:
+        # Fallback: Basic PIL-based validation if OpenCV not available
+        try:
+            # Basic checks using PIL only
+            width, height = image.size
+            
+            if width < 100 or height < 100:
+                return False, 0.0, "Image resolution too low"
+            
+            # Convert to grayscale and check basic properties
+            gray = image.convert('L')
+            pixels = list(gray.getdata())
+            mean_brightness = sum(pixels) / len(pixels)
+            
+            if mean_brightness < 10 or mean_brightness > 250:
+                return False, 0.0, "Image too dark or overexposed"
+            
+            # Basic aspect ratio check
+            aspect_ratio = width / height
+            if 0.5 <= aspect_ratio <= 3.0:
+                return True, 0.6, "Basic image validation passed"
+            else:
+                return False, 0.3, "Unusual aspect ratio for cattle"
+                
+        except Exception as e:
+            # Ultimate fallback - allow image but with warning
+            return True, 0.5, f"Basic validation only (OpenCV unavailable): {str(e)}"
+    
+    except Exception as e:
+        # Error in validation - be conservative and allow
+        return True, 0.5, f"Validation error (proceeding): {str(e)}"
+
+def predict_breed_ml(image, model, breed_classes, device):
+    """ML-based breed prediction with cattle validation"""
+    try:
+        # First validate if image contains cattle
+        is_cattle, confidence, reason = validate_cattle_image(image)
+        
+        if not is_cattle:
+            return None, None, None, f"❌ **Not a cattle/buffalo image**: {reason}"
+        
         transform = get_image_transform()
         image_rgb = image.convert("RGB")
         input_tensor = transform(image_rgb).unsqueeze(0).to(device)
@@ -436,21 +586,28 @@ def predict_breed_ml(image, model, breed_classes, device):
         breed = breed_classes[pred_idx]
         conf = float(probs[pred_idx])
         
-        return breed, conf, probs
+        return breed, conf, probs, f"✅ **Cattle detected** ({confidence:.1%} confidence): {reason}"
         
     except Exception as e:
         st.error(f"Prediction error: {str(e)}")
-        return None, None, None
+        return None, None, None, f"Error: {str(e)}"
 
 def predict_breed_demo(image, breed_classes):
-    """Demo prediction function"""
+    """Demo prediction function with cattle validation"""
+    # First validate if image contains cattle
+    is_cattle, confidence, reason = validate_cattle_image(image)
+    
+    if not is_cattle:
+        return None, None, None, f"❌ **Not a cattle/buffalo image**: {reason}"
+    
     np.random.seed(hash(str(image.size)) % 2**32)  # Consistent results per image
     probs = np.random.random(len(breed_classes))
     probs = probs / probs.sum()
     pred_idx = int(np.argmax(probs))
     breed = breed_classes[pred_idx]
     conf = float(probs[pred_idx])
-    return breed, conf, probs
+    
+    return breed, conf, probs, f"✅ **Cattle detected** ({confidence:.1%} confidence): {reason}"
 
 def get_breed_metadata(breed, breed_info):
     """Get comprehensive breed metadata with clean, simple formatting"""
@@ -645,12 +802,23 @@ if breed_classes is None:
 # Database setup
 conn, c = setup_database()
 
-# Header
+# Header with enhanced farm theme
 st.markdown("""
 <div class="hero-header">
-    <h1>🐄 Indian Cattle & Buffalo Breed Recognition</h1>
-    <h3>SIH 2025 - AI-Powered Livestock Management System</h3>
-    <p>Advanced EfficientNet-B3 Model • 74+ Breeds • Real-time Analysis</p>
+    <h1>🐄 🐃 Indian Cattle & Buffalo Breed Recognition</h1>
+    <h3>🏆 SIH 2025 - AI-Powered Livestock Management System</h3>
+    <p>🤖 Advanced EfficientNet-B3 Model • 🌾 49+ Breeds • ⚡ Real-time Analysis</p>
+    <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px;">
+            🥛 Dairy Classification
+        </span>
+        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px;">
+            🚜 Draught Identification
+        </span>
+        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px;">
+            🌍 Indigenous Breeds
+        </span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -682,17 +850,39 @@ st.sidebar.metric("⚠️ Overdue Vaccinations", overdue_count)
 if st.sidebar.button("➕ Register New Animal"):
     st.query_params = {"action": ["register"]}
 
+# Step-by-step workflow indicator
+st.markdown("""
+<div style="background: linear-gradient(135deg, var(--farm-green) 0%, var(--farm-blue) 100%); 
+           padding: 1rem; border-radius: 15px; margin: 1rem 0; color: white;">
+    <h4 style="margin: 0; text-align: center;">🚀 Simple 3-Step Process</h4>
+    <div style="display: flex; justify-content: space-around; margin-top: 1rem; flex-wrap: wrap;">
+        <div style="text-align: center; margin: 0.5rem;">
+            <div style="font-size: 2rem;">📷</div>
+            <div><strong>Step 1</strong><br>Upload Photo</div>
+        </div>
+        <div style="text-align: center; margin: 0.5rem;">
+            <div style="font-size: 2rem;">🤖</div>
+            <div><strong>Step 2</strong><br>AI Analysis</div>
+        </div>
+        <div style="text-align: center; margin: 0.5rem;">
+            <div style="font-size: 2rem;">📊</div>
+            <div><strong>Step 3</strong><br>Get Results</div>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
 # Main interface
 col1, col2 = st.columns([1.3, 1.7])
 
 with col1:
-    st.markdown("### 📸 Upload Image")
-    st.markdown("**Drag and drop or click to browse**")
+    st.markdown("### � Upload Cattle/Buffalo Image")
+    st.markdown("**🖱️ Drag and drop or click to browse**")
     
     uploaded_file = st.file_uploader(
         "Choose an image",
         type=["jpg", "jpeg", "png"],
-        help="📱 Use phone camera • 🐄 Center the animal • 📏 Best quality images",
+        help="📱 Use phone camera • 🐄 Center the animal • 📏 Best quality images • 🌅 Good lighting",
         label_visibility="collapsed"
     )
     
@@ -725,14 +915,58 @@ with col2:
         
         if analyze_btn:
             with st.spinner("🤖 Analyzing breed with AI model..." if model_available else "🎲 Running demo analysis..."):
-                # Prediction
+                # Prediction with cattle validation
+                validation_message = ""
+                
                 if model_available:
-                    breed, conf, probs = predict_breed_ml(image, model, breed_classes, device)
+                    breed, conf, probs, validation_message = predict_breed_ml(image, model, breed_classes, device)
                     if breed is None:
-                        breed, conf, probs = predict_breed_demo(image, breed_classes)
-                        st.warning("ML prediction failed. Using demo mode.")
+                        breed, conf, probs, validation_message = predict_breed_demo(image, breed_classes)
+                        if breed is None:
+                            st.error("⚠️ **Image Validation Failed**")
+                            st.error(validation_message)
+                            st.info("💡 **Please upload a clear image of cattle or buffalo**")
+                            st.stop()
+                        else:
+                            st.warning("ML prediction failed. Using demo mode.")
                 else:
-                    breed, conf, probs = predict_breed_demo(image, breed_classes)
+                    breed, conf, probs, validation_message = predict_breed_demo(image, breed_classes)
+                    if breed is None:
+                        st.error("⚠️ **Image Validation Failed**")
+                        st.error(validation_message)
+                        st.info("💡 **Please upload a clear image of cattle or buffalo**")
+                        
+                        # Enhanced guidance with visual styling
+                        st.markdown("""
+                        <div style="background: linear-gradient(135deg, var(--farm-yellow) 0%, var(--farm-green) 100%); 
+                                   padding: 1.5rem; border-radius: 15px; margin: 1rem 0; color: white;">
+                            <h4 style="margin: 0 0 1rem 0;">📸 Tips for Valid Cattle/Buffalo Images</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <p><strong>✅ Good Images:</strong></p>
+                                    <ul>
+                                        <li>� Clear view of cattle/buffalo</li>
+                                        <li>🌅 Good lighting conditions</li>
+                                        <li>� Full or partial animal body</li>
+                                        <li>🎯 Animal centered in frame</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p><strong>❌ Avoid:</strong></p>
+                                    <ul>
+                                        <li>🚫 Non-animal subjects</li>
+                                        <li>🌙 Too dark or blurry images</li>
+                                        <li>📐 Extreme angles</li>
+                                        <li>🔍 Very low resolution</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                        st.stop()
+                
+                # Display validation status
+                st.info(validation_message)
                 
                 confidence_pct = conf * 100
                 
@@ -746,28 +980,38 @@ with col2:
                 
                 metadata = get_breed_metadata(breed, breed_info)
                 
-                # Results display with clean information layout
+                # Results display with enhanced farm-themed layout
                 st.success(f"🎯 **Predicted Breed:** {breed}")
-                st.info(f"🎯 **Confidence:** {confidence_pct:.1f}%")
+                st.info(f"📊 **AI Confidence Level:** {confidence_pct:.1f}%")
                 
-                # Basic information in columns
+                # Enhanced basic information cards with farm icons
                 col_info1, col_info2 = st.columns(2)
                 
                 with col_info1:
-                    st.metric("🌍 Origin", metadata['origin'])
-                    st.metric("📂 Category", metadata['category'])
+                    st.metric("🌍 Geographic Origin", metadata['origin'])
+                    st.metric("🏷️ Breed Category", metadata['category'])
                 
                 with col_info2:
-                    st.metric("🏷️ Type", metadata['type'])
-                    st.metric("🥛 Milk Yield", metadata['milk_yield'])
+                    st.metric("🐄 Animal Type", metadata['type'])
+                    st.metric("🥛 Average Milk Yield", metadata['milk_yield'])
                 
-                # Body weight information
-                st.subheader("⚖️ Body Weight")
-                st.write(metadata['body_weight'])
+                # Enhanced body weight section with farm styling
+                st.markdown("### ⚖️ Body Weight Information")
+                st.markdown(f"""
+                <div style="background: linear-gradient(135deg, var(--farm-green) 0%, var(--farm-yellow) 100%); 
+                           padding: 1rem; border-radius: 10px; color: white; margin: 0.5rem 0;">
+                    {metadata['body_weight']}
+                </div>
+                """, unsafe_allow_html=True)
                 
-                # Characteristics
-                st.subheader("🔍 Characteristics")
-                st.write(metadata['characteristics'])
+                # Enhanced characteristics section
+                st.markdown("### 🔍 Physical Characteristics")
+                st.markdown(f"""
+                <div style="background: linear-gradient(135deg, var(--farm-brown) 0%, var(--farm-blue) 100%); 
+                           padding: 1rem; border-radius: 10px; color: white; margin: 0.5rem 0;">
+                    {metadata['characteristics']}
+                </div>
+                """, unsafe_allow_html=True)
                 
                 # Confidence gauge
                 fig = go.Figure(go.Indicator(
@@ -950,15 +1194,49 @@ for medical decisions and breeding programs.
 CONTACT INFORMATION
 ═══════════════════════════════════════════════════════════════════════════
 Project: Smart India Hackathon 2025
-Team: SanjayRockerz
+Team: Nexel
 GitHub: https://github.com/sanjayrockerz/SIH-Cattle-Breed-Recognition
 Email: myteamcreations09@gmail.com
 
 Report generated on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}
                     """
                     
+                    # Enhanced visual summary card
+                    st.markdown("### 📋 Analysis Summary")
+                    summary_col1, summary_col2, summary_col3 = st.columns(3)
+                    
+                    with summary_col1:
+                        st.markdown(f"""
+                        <div style="background: linear-gradient(135deg, var(--farm-green) 0%, var(--farm-yellow) 100%); 
+                                   padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;">
+                            <h3 style="margin: 0;">🎯</h3>
+                            <p style="margin: 0;"><strong>Breed Identified</strong></p>
+                            <p style="margin: 0; font-size: 0.9rem;">{breed}</p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    
+                    with summary_col2:
+                        st.markdown(f"""
+                        <div style="background: linear-gradient(135deg, var(--farm-blue) 0%, var(--farm-green) 100%); 
+                                   padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;">
+                            <h3 style="margin: 0;">📊</h3>
+                            <p style="margin: 0;"><strong>Confidence</strong></p>
+                            <p style="margin: 0; font-size: 0.9rem;">{confidence_pct:.1f}%</p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    
+                    with summary_col3:
+                        st.markdown(f"""
+                        <div style="background: linear-gradient(135deg, var(--farm-brown) 0%, var(--farm-blue) 100%); 
+                                   padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;">
+                            <h3 style="margin: 0;">🌍</h3>
+                            <p style="margin: 0;"><strong>Origin</strong></p>
+                            <p style="margin: 0; font-size: 0.9rem;">{metadata['origin']}</p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    
                     st.download_button(
-                        "📥 Download Report",
+                        "📥 Download Comprehensive Report",
                         data=report_content,
                         file_name=f"breed_report_{breed}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
                         mime="text/plain",
@@ -1027,7 +1305,7 @@ st.markdown("""
             border-radius: 12px; margin-top: 2rem;">
     <h3 style="color: #208793; margin-bottom: 1rem;">🏆 Smart India Hackathon 2025</h3>
     <p style="margin: 0.5rem 0;"><strong>AI-based Cattle Breed Identification and Management System</strong></p>
-    <p style="margin: 0.5rem 0;">Developed by <strong>Team SanjayRockerz</strong></p>
+    <p style="margin: 0.5rem 0;">Developed by <strong>Team Nexel</strong></p>
     <p style="margin: 0.5rem 0;">
         <a href="https://github.com/sanjayrockerz/SIH-Cattle-Breed-Recognition" target="_blank" 
            style="color: #208793; text-decoration: none;">

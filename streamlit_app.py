@@ -1159,7 +1159,6 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
-""", unsafe_allow_html=True)
 
 # Main interface
 col1, col2 = st.columns([1.3, 1.7])
@@ -1214,32 +1213,7 @@ with col2:
                         st.info("💡 **Please upload a clear image of cattle or buffalo**")
                         
                         # Enhanced guidance with visual styling
-                        st.markdown("""
-                        <div style="background: linear-gradient(135deg, var(--farm-yellow) 0%, var(--farm-green) 100%); 
-                                   padding: 1.5rem; border-radius: 15px; margin: 1rem 0; color: white;">
-                            <h4 style="margin: 0 0 1rem 0;">📸 Tips for Valid Cattle/Buffalo Images</h4>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                <div>
-                                    <p><strong>✅ Good Images:</strong></p>
-                                    <ul>
-                                        <li>� Clear view of cattle/buffalo</li>
-                                        <li>🌅 Good lighting conditions</li>
-                                        <li>� Full or partial animal body</li>
-                                        <li>🎯 Animal centered in frame</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <p><strong>❌ Avoid:</strong></p>
-                                    <ul>
-                                        <li>🚫 Non-animal subjects</li>
-                                        <li>🌙 Too dark or blurry images</li>
-                                        <li>📐 Extreme angles</li>
-                                        <li>🔍 Very low resolution</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        """, unsafe_allow_html=True)
+                        st.markdown('<div style="background: linear-gradient(135deg, #FFC107 0%, #4CAF50 100%); padding: 1.5rem; border-radius: 15px; margin: 1rem 0; color: white;"><h4 style="margin: 0 0 1rem 0;">📸 Tips for Valid Cattle/Buffalo Images</h4><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;"><div><p><strong>✅ Good Images:</strong></p><ul><li>🐄 Clear view of cattle/buffalo</li><li>🌅 Good lighting conditions</li><li>📐 Full or partial animal body</li><li>🎯 Animal centered in frame</li></ul></div><div><p><strong>❌ Avoid:</strong></p><ul><li>🚫 Non-animal subjects</li><li>🌙 Too dark or blurry images</li><li>📐 Extreme angles</li><li>🔍 Very low resolution</li></ul></div></div></div>', unsafe_allow_html=True)
                         st.stop()
                 
                 # Display validation status
@@ -1274,21 +1248,11 @@ with col2:
                 
                 # Enhanced body weight section with farm styling
                 st.markdown("### ⚖️ Body Weight Information")
-                st.markdown(f"""
-                <div style="background: linear-gradient(135deg, var(--farm-green) 0%, var(--farm-yellow) 100%); 
-                           padding: 1rem; border-radius: 10px; color: white; margin: 0.5rem 0;">
-                    {metadata['body_weight']}
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown(f'<div style="background: linear-gradient(135deg, #4CAF50 0%, #FFC107 100%); padding: 1rem; border-radius: 10px; color: white; margin: 0.5rem 0;">{metadata["body_weight"]}</div>', unsafe_allow_html=True)
                 
                 # Enhanced characteristics section
                 st.markdown("### 🔍 Physical Characteristics")
-                st.markdown(f"""
-                <div style="background: linear-gradient(135deg, var(--farm-brown) 0%, var(--farm-blue) 100%); 
-                           padding: 1rem; border-radius: 10px; color: white; margin: 0.5rem 0;">
-                    {metadata['characteristics']}
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown(f'<div style="background: linear-gradient(135deg, #8D6E63 0%, #42A5F5 100%); padding: 1rem; border-radius: 10px; color: white; margin: 0.5rem 0;">{metadata["characteristics"]}</div>', unsafe_allow_html=True)
                 
                 # Confidence gauge
                 fig = go.Figure(go.Indicator(
@@ -1401,116 +1365,20 @@ with col2:
                         
                 with col_b:
                     # Generate comprehensive report
-                    report_content = f"""
-╔══════════════════════════════════════════════════════════════════════════╗
-║                    SIH 2025 - CATTLE BREED ANALYSIS REPORT              ║
-╚══════════════════════════════════════════════════════════════════════════╝
-
-Analysis Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-Image File: {uploaded_file.name}
-Generated by: AI-Powered Cattle Breed Recognition System
-
-═══════════════════════════════════════════════════════════════════════════
-PREDICTION RESULTS
-═══════════════════════════════════════════════════════════════════════════
-Predicted Breed: {breed}
-Confidence Level: {confidence_pct:.2f}%
-AI Model: EfficientNet-B3 Deep Learning Model
-
-═══════════════════════════════════════════════════════════════════════════
-BREED INFORMATION
-═══════════════════════════════════════════════════════════════════════════
-Origin: {metadata['origin']}
-Category: {metadata['category']}
-Type: {metadata['type']}
-Milk Yield: {metadata['milk_yield']}
-
-Body Weight Information:
-{metadata['body_weight'].replace('**', '').replace('<br>', '\n')}
-
-Physical Characteristics:
-{metadata['characteristics']}
-
-═══════════════════════════════════════════════════════════════════════════
-NUTRITION MANAGEMENT
-═══════════════════════════════════════════════════════════════════════════
-{metadata['nutrition'].replace('**', '').replace('🌾', '').replace('🥗', '').replace('🌿', '').replace('💧', '').replace('\n', '\n')}
-
-═══════════════════════════════════════════════════════════════════════════
-HEALTH & DISEASE MANAGEMENT
-═══════════════════════════════════════════════════════════════════════════
-{metadata['diseases'].replace('**', '').replace('🏥', '').replace('•', '-')}
-
-═══════════════════════════════════════════════════════════════════════════
-VACCINATION SCHEDULE
-═══════════════════════════════════════════════════════════════════════════
-{metadata['vaccination'].replace('**', '').replace('💉', '').replace('•', '-')}
-
-═══════════════════════════════════════════════════════════════════════════
-BREEDING INFORMATION
-═══════════════════════════════════════════════════════════════════════════
-{metadata['breeding'].replace('**', '').replace('🐄', '')}
-
-═══════════════════════════════════════════════════════════════════════════
-RECOMMENDATIONS
-═══════════════════════════════════════════════════════════════════════════
-1. Follow the nutrition guidelines strictly for optimal milk production
-2. Maintain regular vaccination schedule as per the recommended timeline
-3. Monitor for common diseases and consult veterinarian for preventive care
-4. Ensure adequate water supply and quality fodder throughout the year
-5. Maintain proper breeding records for genetic improvement
-
-═══════════════════════════════════════════════════════════════════════════
-DISCLAIMER
-═══════════════════════════════════════════════════════════════════════════
-This analysis is generated by an AI system for educational and advisory 
-purposes. Always consult with qualified veterinarians and livestock experts 
-for medical decisions and breeding programs.
-
-═══════════════════════════════════════════════════════════════════════════
-CONTACT INFORMATION
-═══════════════════════════════════════════════════════════════════════════
-Project: Smart India Hackathon 2025
-Team: Nexel
-GitHub: https://github.com/sanjayrockerz/SIH-Cattle-Breed-Recognition
-Email: myteamcreations09@gmail.com
-
-Report generated on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}
-                    """
+                    report_content = f"SIH 2025 - CATTLE BREED ANALYSIS REPORT\n\nAnalysis Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\nImage File: {uploaded_file.name}\nGenerated by: AI-Powered Cattle Breed Recognition System\n\nPREDICTION RESULTS\nPredicted Breed: {breed}\nConfidence Level: {confidence_pct:.2f}%\nAI Model: EfficientNet-B3 Deep Learning Model\n\nBREED INFORMATION\nOrigin: {metadata['origin']}\nCategory: {metadata['category']}\nType: {metadata['type']}\nMilk Yield: {metadata['milk_yield']}\n\nBody Weight Information:\n{metadata['body_weight'].replace('**', '').replace('<br>', '\n')}\n\nPhysical Characteristics:\n{metadata['characteristics']}\n\nNUTRITION MANAGEMENT\n{metadata['nutrition'].replace('**', '').replace('🌾', '').replace('🥗', '').replace('🌿', '').replace('💧', '').replace('\n', '\n')}\n\nHEALTH & DISEASE MANAGEMENT\n{metadata['diseases'].replace('**', '').replace('🏥', '').replace('•', '-')}\n\nVACCINATION SCHEDULE\n{metadata['vaccination'].replace('**', '').replace('💉', '').replace('•', '-')}\n\nBREEDING INFORMATION\n{metadata['breeding'].replace('**', '').replace('🐄', '')}\n\nRECOMMENDATIONS\n1. Follow the nutrition guidelines strictly for optimal milk production\n2. Maintain regular vaccination schedule as per the recommended timeline\n3. Monitor for common diseases and consult veterinarian for preventive care\n4. Ensure adequate water supply and quality fodder throughout the year\n5. Maintain proper breeding records for genetic improvement\n\nDISCLAIMER\nThis analysis is generated by an AI system for educational and advisory purposes. Always consult with qualified veterinarians and livestock experts for medical decisions and breeding programs.\n\nCONTACT INFORMATION\nProject: Smart India Hackathon 2025\nTeam: Nexel\nGitHub: https://github.com/sanjayrockerz/SIH-Cattle-Breed-Recognition\nEmail: myteamcreations09@gmail.com\n\nReport generated on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}"
                     
                     # Enhanced visual summary card
                     st.markdown("### 📋 Analysis Summary")
                     summary_col1, summary_col2, summary_col3 = st.columns(3)
                     
                     with summary_col1:
-                        st.markdown(f"""
-                        <div style="background: linear-gradient(135deg, var(--farm-green) 0%, var(--farm-yellow) 100%); 
-                                   padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;">
-                            <h3 style="margin: 0;">🎯</h3>
-                            <p style="margin: 0;"><strong>Breed Identified</strong></p>
-                            <p style="margin: 0; font-size: 0.9rem;">{breed}</p>
-                        </div>
-                        """, unsafe_allow_html=True)
+                        st.markdown(f'<div style="background: linear-gradient(135deg, #4CAF50 0%, #FFC107 100%); padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;"><h3 style="margin: 0;">🎯</h3><p style="margin: 0;"><strong>Breed Identified</strong></p><p style="margin: 0; font-size: 0.9rem;">{breed}</p></div>', unsafe_allow_html=True)
                     
                     with summary_col2:
-                        st.markdown(f"""
-                        <div style="background: linear-gradient(135deg, var(--farm-blue) 0%, var(--farm-green) 100%); 
-                                   padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;">
-                            <h3 style="margin: 0;">📊</h3>
-                            <p style="margin: 0;"><strong>Confidence</strong></p>
-                            <p style="margin: 0; font-size: 0.9rem;">{confidence_pct:.1f}%</p>
-                        </div>
-                        """, unsafe_allow_html=True)
+                        st.markdown(f'<div style="background: linear-gradient(135deg, #42A5F5 0%, #4CAF50 100%); padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;"><h3 style="margin: 0;">📊</h3><p style="margin: 0;"><strong>Confidence</strong></p><p style="margin: 0; font-size: 0.9rem;">{confidence_pct:.1f}%</p></div>', unsafe_allow_html=True)
                     
                     with summary_col3:
-                        st.markdown(f"""
-                        <div style="background: linear-gradient(135deg, var(--farm-brown) 0%, var(--farm-blue) 100%); 
-                                   padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;">
-                            <h3 style="margin: 0;">🌍</h3>
-                            <p style="margin: 0;"><strong>Origin</strong></p>
-                            <p style="margin: 0; font-size: 0.9rem;">{metadata['origin']}</p>
-                        </div>
-                        """, unsafe_allow_html=True)
+                        st.markdown(f'<div style="background: linear-gradient(135deg, #8D6E63 0%, #42A5F5 100%); padding: 1rem; border-radius: 10px; text-align: center; color: white; margin: 0.5rem 0;"><h3 style="margin: 0;">🌍</h3><p style="margin: 0;"><strong>Origin</strong></p><p style="margin: 0; font-size: 0.9rem;">{metadata["origin"]}</p></div>', unsafe_allow_html=True)
                     
                     st.download_button(
                         "📥 Download Comprehensive Report",
@@ -1521,13 +1389,7 @@ Report generated on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}
                     )
     else:
         st.info("👆 **Upload an image to get started**")
-        st.markdown("""
-        <div style="text-align: center; padding: 2rem; color: #666;">
-            <p>🐄 Supports cattle and buffalo breeds</p>
-            <p>🔬 AI-powered analysis with EfficientNet-B3</p>
-            <p>📱 Optimized for mobile photography</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown('<div style="text-align: center; padding: 2rem; color: #666;"><p>🐄 Supports cattle and buffalo breeds</p><p>🔬 AI-powered analysis with EfficientNet-B3</p><p>📱 Optimized for mobile photography</p></div>', unsafe_allow_html=True)
 
 # Registration form
 q = st.query_params
@@ -1577,23 +1439,4 @@ if len(animals_db) > 0:
 
 # Footer
 st.markdown("---")
-st.markdown("""
-<div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(32,135,147,0.05), rgba(32,135,147,0.1)); 
-            border-radius: 12px; margin-top: 2rem;">
-    <h3 style="color: #208793; margin-bottom: 1rem;">🏆 Smart India Hackathon 2025</h3>
-    <p style="margin: 0.5rem 0;"><strong>AI-based Cattle Breed Identification and Management System</strong></p>
-    <p style="margin: 0.5rem 0;">Developed by <strong>Team Nexel</strong></p>
-    <p style="margin: 0.5rem 0;">
-        <a href="https://github.com/sanjayrockerz/SIH-Cattle-Breed-Recognition" target="_blank" 
-           style="color: #208793; text-decoration: none;">
-            🔗 GitHub Repository
-        </a> • 
-        <a href="mailto:myteamcreations09@gmail.com" style="color: #208793; text-decoration: none;">
-            ✉️ Contact
-        </a>
-    </p>
-    <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">
-        Empowering farmers with AI • Supporting indigenous breeds • Building the future of livestock management
-    </p>
-</div>
-""", unsafe_allow_html=True)
+st.markdown('<div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(32,135,147,0.05), rgba(32,135,147,0.1)); border-radius: 12px; margin-top: 2rem;"><h3 style="color: #208793; margin-bottom: 1rem;">🏆 Smart India Hackathon 2025</h3><p style="margin: 0.5rem 0;"><strong>AI-based Cattle Breed Identification and Management System</strong></p><p style="margin: 0.5rem 0;">Developed by <strong>Team Nexel</strong></p><p style="margin: 0.5rem 0;"><a href="https://github.com/sanjayrockerz/SIH-Cattle-Breed-Recognition" target="_blank" style="color: #208793; text-decoration: none;">🔗 GitHub Repository</a> • <a href="mailto:myteamcreations09@gmail.com" style="color: #208793; text-decoration: none;">✉️ Contact</a></p><p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">Empowering farmers with AI • Supporting indigenous breeds • Building the future of livestock management</p></div>', unsafe_allow_html=True)

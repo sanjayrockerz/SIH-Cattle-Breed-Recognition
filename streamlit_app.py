@@ -179,24 +179,12 @@ def load_breed_data():
 
 @st.cache_data
 def load_custom_css():
-    """Load optimized CSS with caching for maximum performance"""
-    css_content = ""
+    """Load optimized CSS with caching - returns HTML string for st.markdown"""
     
-    # Try to load optimized CSS first
-    css_files = ["static/optimized_style.css", "static/style.css"]
-    
-    for css_file in css_files:
-        try:
-            with open(css_file, "r", encoding="utf-8") as f:
-                css_content = f.read()
-                break  # Use first available CSS file
-        except FileNotFoundError:
-            continue
-    
-    # Inline critical CSS for performance
-    critical_css = """
+    # Core CSS optimizations inline for immediate rendering
+    css_html = """
     <style>
-    /* Critical CSS for immediate rendering */
+    /* SIH 2025 - Critical CSS for immediate rendering */
     :root {
         --primary-teal: #208793;
         --primary-teal-light: #32a5b3;
@@ -204,7 +192,13 @@ def load_custom_css():
         --bg-surface: rgba(32, 135, 147, 0.05);
         --bg-card: rgba(32, 135, 147, 0.1);
         --border-light: rgba(32, 135, 147, 0.2);
+        --success: #10b981;
+        --warning: #f59e0b;
+        --error: #ef4444;
     }
+    
+    /* Performance optimizations */
+    * { box-sizing: border-box; }
     
     .main .block-container {
         padding-top: 1rem !important;
@@ -212,12 +206,12 @@ def load_custom_css():
         max-width: 1200px !important;
     }
     
-    /* Hide Streamlit branding */
-    #MainMenu { visibility: hidden; }
-    footer { visibility: hidden; }
-    .stApp > header { background: transparent; height: 0; }
+    /* Hide Streamlit branding for production */
+    #MainMenu { visibility: hidden !important; }
+    footer { visibility: hidden !important; }
+    .stApp > header[data-testid="stHeader"] { background: transparent !important; height: 0 !important; }
     
-    /* Enhanced file upload zone */
+    /* Enhanced file upload zone with drag-drop styling */
     .stFileUploader > div {
         border: 2px dashed var(--primary-teal) !important;
         border-radius: 12px !important;
@@ -234,12 +228,22 @@ def load_custom_css():
         box-shadow: 0 4px 12px rgba(32, 135, 147, 0.15) !important;
     }
     
-    /* Button styling */
+    .stFileUploader > div > div {
+        border: none !important;
+        background: transparent !important;
+    }
+    
+    /* Button enhancements */
     .stButton > button {
         border-radius: 8px !important;
         border: none !important;
         transition: all 0.3s ease !important;
         font-weight: 600 !important;
+    }
+    
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-dark) 100%) !important;
+        color: white !important;
     }
     
     .stButton > button:hover {
@@ -254,6 +258,43 @@ def load_custom_css():
         border-radius: 8px !important;
         border: 1px solid var(--border-light) !important;
     }
+    
+    .stMetric > div > div {
+        color: var(--primary-teal) !important;
+        font-weight: 700 !important;
+    }
+    
+    /* Tab styling */
+    .stTabs [data-baseweb="tab-list"] { gap: 8px; }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-light);
+    }
+    .stTabs [aria-selected="true"] {
+        background: var(--primary-teal) !important;
+        color: white !important;
+    }
+    
+    /* Form and input styling */
+    .stForm {
+        border: 1px solid var(--border-light) !important;
+        border-radius: 12px !important;
+        background: var(--bg-surface) !important;
+        padding: 1.5rem !important;
+    }
+    
+    .stTextInput > div > div, .stTextArea > div > div, .stSelectbox > div > div, .stDateInput > div > div {
+        border-radius: 8px !important;
+        border: 1px solid var(--border-light) !important;
+    }
+    
+    /* Alert styling */
+    .stSuccess { border-radius: 8px !important; border-left: 4px solid var(--success) !important; }
+    .stError { border-radius: 8px !important; border-left: 4px solid var(--error) !important; }
+    .stWarning { border-radius: 8px !important; border-left: 4px solid var(--warning) !important; }
+    .stInfo { border-radius: 8px !important; border-left: 4px solid var(--primary-teal) !important; }
     
     /* Custom utility classes */
     .hero-header {
@@ -283,17 +324,29 @@ def load_custom_css():
         border-left: 4px solid var(--primary-teal);
     }
     
-    /* Animation for better UX */
-    .fade-in {
-        animation: fadeIn 0.5s ease-in;
+    .footer-card {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-top: 2rem;
+        text-align: center;
+        border: 1px solid var(--border-light);
     }
     
+    /* Smooth animations */
+    .fade-in { animation: fadeIn 0.5s ease-in; }
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Mobile responsive */
+    /* Chart styling */
+    .js-plotly-plot {
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Mobile responsive optimizations */
     @media (max-width: 768px) {
         .main .block-container { padding: 0.5rem !important; }
         .hero-header { padding: 1.5rem; }
@@ -301,17 +354,27 @@ def load_custom_css():
         .stFileUploader > div { padding: 1.5rem !important; }
     }
     
-    /* Reduced motion support */
+    /* Accessibility and performance */
     @media (prefers-reduced-motion: reduce) {
-        * {
+        *, *::before, *::after {
             animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
             transition-duration: 0.01ms !important;
+        }
+    }
+    
+    @media (prefers-contrast: high) {
+        :root {
+            --primary-teal: #000;
+            --border-light: #333;
+            --bg-surface: #f0f0f0;
+            --bg-card: #e0e0e0;
         }
     }
     </style>
     """
     
-    return critical_css + (f"<style>{css_content}</style>" if css_content else "")
+    return css_html
 
 @st.cache_resource
 def load_ml_model():
@@ -390,36 +453,92 @@ def predict_breed_demo(image, breed_classes):
     return breed, conf, probs
 
 def get_breed_metadata(breed, breed_info):
-    """Get comprehensive breed metadata"""
+    """Get comprehensive breed metadata with all detailed information"""
     meta = breed_info.get(breed, {})
     
-    # Format nutrition
+    # Extract all key information with proper formatting
+    origin = meta.get("origin", "Origin not specified")
+    category = meta.get("category", "Category not specified").replace("_", " ").title()
+    breed_type = meta.get("type", "Type not specified").title()
+    characteristics = meta.get("characteristics", "Characteristics not available")
+    milk_yield = meta.get("milk_yield", "Milk yield data not available")
+    
+    # Body weight formatting
+    body_weight = meta.get("body_weight", {})
+    if isinstance(body_weight, dict):
+        if "male" in body_weight and "female" in body_weight:
+            body_weight_str = f"**Male**: {body_weight['male']}, **Female**: {body_weight['female']}"
+        else:
+            body_weight_str = "Body weight data not available"
+    elif isinstance(body_weight, str):
+        body_weight_str = f"**Average**: {body_weight}"
+    else:
+        body_weight_str = "Body weight data not available"
+    
+    # Detailed nutrition formatting
     nutrition = meta.get("nutrition", {})
     if isinstance(nutrition, dict):
         nutrition_parts = []
-        for k, v in nutrition.items():
-            nutrition_parts.append(f"**{k.replace('_', ' ').title()}**: {v}")
-        nutrition_str = "\n".join(nutrition_parts)
+        
+        # Map nutrition fields to user-friendly names
+        nutrition_map = {
+            "dry_matter": "🌾 **Dry Matter**",
+            "concentrate": "🥗 **Concentrate Feed**", 
+            "green_fodder": "🌿 **Green Fodder**",
+            "dry_fodder": "🌾 **Dry Fodder**",
+            "water": "💧 **Water Requirement**"
+        }
+        
+        for key, value in nutrition.items():
+            display_name = nutrition_map.get(key, f"**{key.replace('_', ' ').title()}**")
+            nutrition_parts.append(f"{display_name}: {value}")
+        
+        nutrition_str = "\n".join(nutrition_parts) if nutrition_parts else "Nutrition guidelines not available"
     else:
-        nutrition_str = str(nutrition) if nutrition else "No specific nutrition guidelines available."
+        nutrition_str = str(nutrition) if nutrition else "Nutrition guidelines not available"
     
-    # Format diseases
+    # Format diseases with emojis
     diseases = meta.get("common_diseases", [])
-    disease_str = "**Common Diseases**: " + ", ".join(diseases) if diseases else "No specific disease information available."
+    if diseases:
+        disease_items = [f"• {disease}" for disease in diseases]
+        disease_str = "🏥 **Common Diseases**:\n" + "\n".join(disease_items)
+    else:
+        disease_str = "🏥 **Common Diseases**: No specific disease information available"
     
-    # Format characteristics
-    characteristics = meta.get("characteristics", "No specific characteristics listed.")
-    milk_yield = meta.get("milk_yield", "Milk yield data not available.")
-    origin = meta.get("origin", "Origin not specified.")
+    # Format vaccination schedule
+    vaccination_schedule = meta.get("vaccination_schedule", [])
+    if vaccination_schedule:
+        vacc_parts = []
+        for vacc in vaccination_schedule:
+            vaccine_name = vacc.get("vaccine", "Unknown")
+            frequency = vacc.get("frequency", "Not specified")
+            vacc_parts.append(f"• **{vaccine_name}**: {frequency}")
+        vaccination_str = "💉 **Vaccination Schedule**:\n" + "\n".join(vacc_parts)
+    else:
+        vaccination_str = "💉 **Vaccination Schedule**: No vaccination schedule available"
+    
+    # Breeding information
+    breeding_info = meta.get("breeding_info", {})
+    if breeding_info:
+        breeding_parts = []
+        for key, value in breeding_info.items():
+            display_name = key.replace("_", " ").title()
+            breeding_parts.append(f"**{display_name}**: {value}")
+        breeding_str = "🐄 **Breeding Information**:\n" + "\n".join(breeding_parts)
+    else:
+        breeding_str = "🐄 **Breeding Information**: Not available"
     
     return {
-        "nutrition": nutrition_str,
-        "diseases": disease_str,
+        "origin": origin,
+        "category": category,
+        "type": breed_type,
         "characteristics": characteristics,
         "milk_yield": milk_yield,
-        "origin": origin,
-        "category": meta.get("category", "Unknown"),
-        "type": meta.get("type", "Unknown")
+        "body_weight": body_weight_str,
+        "nutrition": nutrition_str,
+        "diseases": disease_str,
+        "vaccination": vaccination_str,
+        "breeding": breeding_str
     }
 
 def setup_database():
@@ -550,14 +669,32 @@ with col2:
                 confidence_pct = conf * 100
                 metadata = get_breed_metadata(breed, breed_info)
                 
-                # Results display
+                # Results display with comprehensive information
                 st.markdown(f"""
                 <div class="result-card">
                     <h2 style="color: #208793; margin-top: 0;">🎯 {breed}</h2>
                     <h4 style="color: #666;">Confidence: {confidence_pct:.1f}%</h4>
-                    <p><strong>Origin:</strong> {metadata['origin']}</p>
-                    <p><strong>Category:</strong> {metadata['category']} • <strong>Type:</strong> {metadata['type']}</p>
-                    <p><strong>Milk Yield:</strong> {metadata['milk_yield']}</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+                        <div>
+                            <p><strong>🌍 Origin:</strong> {metadata['origin']}</p>
+                            <p><strong>📂 Category:</strong> {metadata['category']}</p>
+                        </div>
+                        <div>
+                            <p><strong>🏷️ Type:</strong> {metadata['type']}</p>
+                            <p><strong>🥛 Milk Yield:</strong> {metadata['milk_yield']}</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 1rem 0;">
+                        <p><strong>⚖️ Body Weight:</strong></p>
+                        <p style="margin-left: 1rem; color: #555;">{metadata['body_weight']}</p>
+                    </div>
+                    
+                    <div style="margin: 1rem 0;">
+                        <p><strong>🔍 Characteristics:</strong></p>
+                        <p style="margin-left: 1rem; color: #555;">{metadata['characteristics']}</p>
+                    </div>
                 </div>
                 """, unsafe_allow_html=True)
                 
@@ -584,17 +721,27 @@ with col2:
                 fig.update_layout(height=300)
                 st.plotly_chart(fig, use_container_width=True)
                 
-                # Detailed information in tabs
-                tab1, tab2, tab3 = st.tabs(["🥗 Nutrition", "🏥 Health", "📊 Analysis"])
+                # Detailed information in comprehensive tabs
+                tab1, tab2, tab3, tab4, tab5 = st.tabs(["🥗 Nutrition", "🏥 Health", "💉 Vaccination", "� Breeding", "�📊 Analysis"])
                 
                 with tab1:
+                    st.markdown("### 🌾 Complete Nutrition Guide")
                     st.markdown(metadata['nutrition'])
                     
                 with tab2:
+                    st.markdown("### 🏥 Health Information")
                     st.markdown(metadata['diseases'])
-                    st.markdown(f"**Physical Characteristics**: {metadata['characteristics']}")
                     
                 with tab3:
+                    st.markdown("### 💉 Vaccination Schedule")
+                    st.markdown(metadata['vaccination'])
+                    
+                with tab4:
+                    st.markdown("### 🐄 Breeding Details")
+                    st.markdown(metadata['breeding'])
+                    
+                with tab5:
+                    st.markdown("### 📊 Prediction Analysis")
                     # Top 5 predictions
                     if len(probs) > 1:
                         top5_idx = np.argsort(probs)[-5:][::-1]
@@ -607,6 +754,14 @@ with col2:
                         })
                         
                         st.bar_chart(chart_data.set_index('Breed'), height=300)
+                        
+                        # Show detailed comparison
+                        st.markdown("#### 🔍 Top Predictions Comparison")
+                        for i, (breed_name, prob) in enumerate(zip(top5_breeds, top5_probs)):
+                            emoji = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else "📍"
+                            st.markdown(f"{emoji} **{breed_name}**: {prob:.1f}%")
+                    else:
+                        st.info("Analysis data not available for detailed comparison.")
                 
                 # Action buttons
                 col_a, col_b = st.columns(2)

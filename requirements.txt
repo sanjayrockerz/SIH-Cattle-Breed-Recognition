@@ -1,0 +1,15 @@
+streamlit
+fastapi
+uvicorn[standard]
+torch
+torchvision
+efficientnet_pytorch
+pillow
+numpy
+opencv-python
+aiosqlite
+redis
+pandas
+gTTS
+plotly
+matplotlib

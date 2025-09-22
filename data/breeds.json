@@ -1,0 +1,48 @@
+{
+  "Gir": {
+    "type": "indigenous", "category": "dual_purpose", "origin": "Gujarat",
+    "characteristics": "Compact body, convex forehead, long pendulous ears",
+    "milk_yield": "1200-1800 kg/lactation",
+    "nutrition": {
+      "dry_matter": "2.5-3% of body weight",
+      "concentrate": "300-400g per liter of milk",
+      "green_fodder": "15-20 kg/day",
+      "water": "30-50 liters/day"
+    },
+    "common_diseases": ["Foot and Mouth Disease", "Mastitis", "Parasitic infections"],
+    "vaccination_schedule": [
+      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
+      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
+    ]
+  },
+  "Holstein Friesian": {
+    "type": "exotic", "category": "dairy", "origin": "Netherlands",
+    "characteristics": "Large size, black and white patches, very high milk producers",
+    "milk_yield": "7000-10000 kg/lactation",
+    "nutrition": {
+      "dry_matter": "3-3.5% of body weight",
+      "concentrate": "400-500g per liter of milk",
+      "green_fodder": "25-30 kg/day",
+      "water": "80-100 liters/day"
+    },
+    "common_diseases": ["Mastitis", "Milk Fever", "Ketosis"],
+    "vaccination_schedule": [
+      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180}
+    ]
+  },
+  "Murrah": {
+    "type": "indigenous", "category": "dairy", "origin": "Haryana",
+    "characteristics": "Jet-black, compact body, tightly curved horns, highest milk-producing buffalo breed",
+    "milk_yield": "2000-4000 kg/lactation",
+    "nutrition": {
+      "dry_matter": "3% of body weight",
+      "concentrate": "400g per liter of milk",
+      "green_fodder": "20-25 kg/day",
+      "water": "60-80 liters/day"
+    },
+    "common_diseases": ["Mastitis", "Foot and Mouth Disease", "Haemorrhagic Septicaemia"],
+    "vaccination_schedule": [
+      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180}
+    ]
+  }
+}

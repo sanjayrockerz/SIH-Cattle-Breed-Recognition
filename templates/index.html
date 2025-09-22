@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cattle & Buffalo Breed Recognition</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>🐄 Indian Cattle & Buffalo Assistant</h1>
+    <p>AI-powered breed recognition, nutrition, vaccination & BPA integration</p>
+  </div>
+  <div class="container">
+    <form id="upload-form" enctype="multipart/form-data">
+      <label for="image">Upload animal photo:</label><br>
+      <input type="file" id="image" name="image" accept="image/*"><br><br>
+      <button class="btn" type="submit">Analyze</button>
+    </form>
+    <div id="result"></div>
+  </div>
+  <script>
+    document.getElementById('upload-form').onsubmit = async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const res = await fetch('/predict', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      let html = '';
+      if (data.predictions && data.predictions.length > 0) {
+        const pred = data.predictions[0];
+        html += `<div class='result-card'><h2>${pred.breed_name}</h2><p><b>Confidence:</b> ${(pred.confidence*100).toFixed(2)}%</p><p><b>Category:</b> ${pred.category}</p><p><b>Origin:</b> ${pred.origin}</p><p><b>Characteristics:</b> ${pred.characteristics}</p></div>`;
+      }
+      document.getElementById('result').innerHTML = html;
+    };
+  </script>
+</body>
+</html>

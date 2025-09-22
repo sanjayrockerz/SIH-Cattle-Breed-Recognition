@@ -939,13 +939,13 @@ st.markdown("""
     <h3>🏆 SIH 2025 - AI-Powered Livestock Management System</h3>
     <p>🤖 Advanced EfficientNet-B3 Model • 🌾 49+ Breeds • ⚡ Real-time Analysis</p>
     <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px;">
+        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px; color: #1a1a1a; font-weight: 600;">
             🥛 Dairy Classification
         </span>
-        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px;">
+        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px; color: #1a1a1a; font-weight: 600;">
             🚜 Draught Identification
         </span>
-        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px;">
+        <span style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 20px; color: #1a1a1a; font-weight: 600;">
             🌍 Indigenous Breeds
         </span>
     </div>
@@ -1101,39 +1101,39 @@ st.markdown("""
         <div style="background: linear-gradient(145deg, var(--farm-green-light) 0%, var(--farm-green-primary) 100%); 
                     padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
                     box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3); transform: scale(1.02);
-                    border: 3px solid rgba(255,255,255,0.3);">
+                    border: 3px solid rgba(255,255,255,0.3); color: #1a1a1a;">
             <div style="font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">📷</div>
             <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; 
-                        background: rgba(255,255,255,0.2); padding: 0.5rem; border-radius: 8px;">
+                        background: rgba(255,255,255,0.8); padding: 0.5rem; border-radius: 8px; color: #1a1a1a;">
                 STEP 1
             </div>
-            <div style="font-size: 1.1rem; line-height: 1.4;">Upload Clear<br>Cattle/Buffalo Photo</div>
+            <div style="font-size: 1.1rem; line-height: 1.4; color: #1a1a1a; font-weight: 600;">Upload Clear<br>Cattle/Buffalo Photo</div>
         </div>
         
         <!-- Step 2 with Yellow Highlight -->
         <div style="background: linear-gradient(145deg, var(--farm-yellow-light) 0%, var(--farm-yellow-primary) 100%); 
                     padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
                     box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4); transform: scale(1.02);
-                    border: 3px solid rgba(255,255,255,0.3);">
+                    border: 3px solid rgba(255,255,255,0.3); color: #1a1a1a;">
             <div style="font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">🤖</div>
             <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;
-                        background: rgba(255,255,255,0.2); padding: 0.5rem; border-radius: 8px;">
+                        background: rgba(255,255,255,0.8); padding: 0.5rem; border-radius: 8px; color: #1a1a1a;">
                 STEP 2
             </div>
-            <div style="font-size: 1.1rem; line-height: 1.4;">AI Analyzes<br>Breed Features</div>
+            <div style="font-size: 1.1rem; line-height: 1.4; color: #1a1a1a; font-weight: 600;">AI Analyzes<br>Breed Features</div>
         </div>
         
         <!-- Step 3 with Blue Highlight -->
         <div style="background: linear-gradient(145deg, var(--farm-blue-light) 0%, var(--farm-blue-primary) 100%); 
                     padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
                     box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4); transform: scale(1.02);
-                    border: 3px solid rgba(255,255,255,0.3);">
+                    border: 3px solid rgba(255,255,255,0.3); color: #1a1a1a;">
             <div style="font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">📊</div>
             <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;
-                        background: rgba(255,255,255,0.2); padding: 0.5rem; border-radius: 8px;">
+                        background: rgba(255,255,255,0.8); padding: 0.5rem; border-radius: 8px; color: #1a1a1a;">
                 STEP 3
             </div>
-            <div style="font-size: 1.1rem; line-height: 1.4;">Get Detailed<br>Breed Results</div>
+            <div style="font-size: 1.1rem; line-height: 1.4; color: #1a1a1a; font-weight: 600;">Get Detailed<br>Breed Results</div>
         </div>
     </div>
     
@@ -1144,7 +1144,7 @@ st.markdown("""
                         height: 100%; width: 100%; border-radius: 4px; 
                         animation: progressFlow 3s ease-in-out infinite;"></div>
         </div>
-        <div style="text-align: center; margin-top: 1rem; font-size: 1rem; opacity: 0.9;">
+        <div style="text-align: center; margin-top: 1rem; font-size: 1rem; opacity: 0.9; color: #1a1a1a; font-weight: 600;">
             🎯 AI-Powered • 🌾 49+ Breeds • ⚡ Instant Results
         </div>
     </div>

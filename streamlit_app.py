@@ -454,13 +454,28 @@ def predict_breed_demo(image, breed_classes):
 
 def get_breed_metadata(breed, breed_info):
     """Get comprehensive breed metadata with clean, simple formatting"""
-    # Try exact match first, then fuzzy match for breed name
-    meta = breed_info.get(breed, {})
+    # Normalize breed name - try multiple variations
+    meta = {}
     
-    # If exact match not found, try case-insensitive search
-    if not meta:
+    # Try exact match first
+    if breed in breed_info:
+        meta = breed_info[breed]
+    # Try replacing underscores with spaces
+    elif breed.replace('_', ' ') in breed_info:
+        meta = breed_info[breed.replace('_', ' ')]
+    # Try replacing spaces with underscores
+    elif breed.replace(' ', '_') in breed_info:
+        meta = breed_info[breed.replace(' ', '_')]
+    # Try case-insensitive search
+    else:
         for key in breed_info.keys():
             if key.lower() == breed.lower():
+                meta = breed_info[key]
+                break
+            elif key.lower() == breed.replace('_', ' ').lower():
+                meta = breed_info[key]
+                break
+            elif key.lower() == breed.replace(' ', '_').lower():
                 meta = breed_info[key]
                 break
     
@@ -468,6 +483,12 @@ def get_breed_metadata(breed, breed_info):
     if not meta:
         for key in breed_info.keys():
             if breed.lower() in key.lower() or key.lower() in breed.lower():
+                meta = breed_info[key]
+                break
+            elif breed.replace('_', ' ').lower() in key.lower():
+                meta = breed_info[key]
+                break
+            elif breed.replace(' ', '_').lower() in key.lower():
                 meta = breed_info[key]
                 break
     

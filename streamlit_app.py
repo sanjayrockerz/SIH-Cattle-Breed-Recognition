@@ -1088,26 +1088,76 @@ st.sidebar.metric(t["overdue_vaccinations"], overdue_count)
 if st.sidebar.button(t["register_new_animal"]):
     st.query_params = {"action": ["register"]}
 
-# Step-by-step workflow indicator
+# Enhanced step-by-step workflow indicator with highlighted colors
 st.markdown("""
-<div style="background: linear-gradient(135deg, var(--farm-green) 0%, var(--farm-blue) 100%); 
-           padding: 1rem; border-radius: 15px; margin: 1rem 0; color: white;">
-    <h4 style="margin: 0; text-align: center;">🚀 Simple 3-Step Process</h4>
-    <div style="display: flex; justify-content: space-around; margin-top: 1rem; flex-wrap: wrap;">
-        <div style="text-align: center; margin: 0.5rem;">
-            <div style="font-size: 2rem;">📷</div>
-            <div><strong>Step 1</strong><br>Upload Photo</div>
+<div style="background: linear-gradient(135deg, var(--farm-green-primary) 0%, var(--farm-blue-primary) 100%); 
+           padding: 2rem; border-radius: 20px; margin: 2rem 0; color: white; box-shadow: var(--shadow-strong);">
+    <h2 style="margin: 0 0 2rem 0; text-align: center; font-size: 2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+        🚀 Simple 3-Step Process for Breed Recognition
+    </h2>
+    <div style="display: flex; justify-content: space-around; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        
+        <!-- Step 1 with Green Highlight -->
+        <div style="background: linear-gradient(145deg, var(--farm-green-light) 0%, var(--farm-green-primary) 100%); 
+                    padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
+                    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3); transform: scale(1.02);
+                    border: 3px solid rgba(255,255,255,0.3);">
+            <div style="font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">📷</div>
+            <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; 
+                        background: rgba(255,255,255,0.2); padding: 0.5rem; border-radius: 8px;">
+                STEP 1
+            </div>
+            <div style="font-size: 1.1rem; line-height: 1.4;">Upload Clear<br>Cattle/Buffalo Photo</div>
         </div>
-        <div style="text-align: center; margin: 0.5rem;">
-            <div style="font-size: 2rem;">🤖</div>
-            <div><strong>Step 2</strong><br>AI Analysis</div>
+        
+        <!-- Step 2 with Yellow Highlight -->
+        <div style="background: linear-gradient(145deg, var(--farm-yellow-light) 0%, var(--farm-yellow-primary) 100%); 
+                    padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
+                    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4); transform: scale(1.02);
+                    border: 3px solid rgba(255,255,255,0.3);">
+            <div style="font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">🤖</div>
+            <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;
+                        background: rgba(255,255,255,0.2); padding: 0.5rem; border-radius: 8px;">
+                STEP 2
+            </div>
+            <div style="font-size: 1.1rem; line-height: 1.4;">AI Analyzes<br>Breed Features</div>
         </div>
-        <div style="text-align: center; margin: 0.5rem;">
-            <div style="font-size: 2rem;">📊</div>
-            <div><strong>Step 3</strong><br>Get Results</div>
+        
+        <!-- Step 3 with Blue Highlight -->
+        <div style="background: linear-gradient(145deg, var(--farm-blue-light) 0%, var(--farm-blue-primary) 100%); 
+                    padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
+                    box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4); transform: scale(1.02);
+                    border: 3px solid rgba(255,255,255,0.3);">
+            <div style="font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">📊</div>
+            <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;
+                        background: rgba(255,255,255,0.2); padding: 0.5rem; border-radius: 8px;">
+                STEP 3
+            </div>
+            <div style="font-size: 1.1rem; line-height: 1.4;">Get Detailed<br>Breed Results</div>
+        </div>
+    </div>
+    
+    <!-- Progress Bar Animation -->
+    <div style="margin-top: 2rem; padding: 0 1rem;">
+        <div style="background: rgba(255,255,255,0.2); height: 8px; border-radius: 4px; overflow: hidden;">
+            <div style="background: linear-gradient(90deg, var(--farm-green-light) 33%, var(--farm-yellow-light) 66%, var(--farm-blue-light) 100%); 
+                        height: 100%; width: 100%; border-radius: 4px; 
+                        animation: progressFlow 3s ease-in-out infinite;"></div>
+        </div>
+        <div style="text-align: center; margin-top: 1rem; font-size: 1rem; opacity: 0.9;">
+            🎯 AI-Powered • 🌾 49+ Breeds • ⚡ Instant Results
         </div>
     </div>
 </div>
+
+<!-- Add CSS animation for progress bar -->
+<style>
+@keyframes progressFlow {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0%); }
+    100% { transform: translateX(100%); }
+}
+</style>
 """, unsafe_allow_html=True)
 
 # Main interface

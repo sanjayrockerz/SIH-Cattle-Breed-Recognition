@@ -12,6 +12,7 @@ import traceback
 from datetime import datetime, timedelta
 from PIL import Image
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
 from io import BytesIO
 import re
 
@@ -453,7 +454,22 @@ def predict_breed_demo(image, breed_classes):
 
 def get_breed_metadata(breed, breed_info):
     """Get comprehensive breed metadata with clean, simple formatting"""
+    # Try exact match first, then fuzzy match for breed name
     meta = breed_info.get(breed, {})
+    
+    # If exact match not found, try case-insensitive search
+    if not meta:
+        for key in breed_info.keys():
+            if key.lower() == breed.lower():
+                meta = breed_info[key]
+                break
+    
+    # If still not found, try partial matching
+    if not meta:
+        for key in breed_info.keys():
+            if breed.lower() in key.lower() or key.lower() in breed.lower():
+                meta = breed_info[key]
+                break
     
     # Extract basic information with clean formatting
     origin = meta.get("origin", "Origin not specified")
@@ -474,6 +490,90 @@ def get_breed_metadata(breed, breed_info):
     else:
         body_weight_str = "Body weight data not available"
     
+    # Format nutrition data with fallback
+    nutrition_data = meta.get("nutrition", {})
+    if isinstance(nutrition_data, dict) and nutrition_data:
+        nutrition_str = "🌾 **Daily Nutritional Requirements:**\n\n"
+        for key, value in nutrition_data.items():
+            clean_key = key.replace('_', ' ').title()
+            nutrition_str += f"• **{clean_key}:** {value}\n"
+    else:
+        # Fallback nutrition information
+        nutrition_str = """🌾 **General Nutritional Requirements:**
+
+• **Dry Matter:** 2.5-3% of body weight
+• **Concentrate:** 300-400g per liter of milk
+• **Green Fodder:** 15-20 kg/day
+• **Water:** 40-60 liters/day
+• **Mineral Mixture:** 50-100g/day
+• **Salt:** 30-50g/day
+
+*Note: Specific requirements may vary based on breed, age, and production stage.*"""
+    
+    # Format diseases data with fallback
+    diseases_data = meta.get("common_diseases", [])
+    if isinstance(diseases_data, list) and diseases_data:
+        diseases_str = "🏥 **Common Diseases & Prevention:**\n\n"
+        for disease in diseases_data:
+            diseases_str += f"• {disease}\n"
+    else:
+        # Fallback disease information
+        diseases_str = """🏥 **Common Diseases & Prevention:**
+
+• **Foot and Mouth Disease (FMD)** - Vaccination every 6 months
+• **Haemorrhagic Septicaemia (HS)** - Annual vaccination before monsoon
+• **Black Quarter (BQ)** - Annual vaccination
+• **Mastitis** - Proper milking hygiene and regular udder health checks
+• **Internal Parasites** - Regular deworming every 3-4 months
+• **External Parasites** - Tick control measures
+
+*Consult local veterinarian for specific prevention protocols.*"""
+    
+    # Format vaccination data with fallback
+    vaccination_data = meta.get("vaccination_schedule", [])
+    if isinstance(vaccination_data, list) and vaccination_data:
+        vaccination_str = "💉 **Vaccination Schedule:**\n\n"
+        for vaccine in vaccination_data:
+            vaccine_name = vaccine.get('vaccine', 'Unknown')
+            frequency = vaccine.get('frequency', 'Not specified')
+            season = vaccine.get('season', '')
+            if season:
+                vaccination_str += f"• **{vaccine_name}:** {frequency} ({season})\n"
+            else:
+                vaccination_str += f"• **{vaccine_name}:** {frequency}\n"
+    else:
+        # Fallback vaccination schedule
+        vaccination_str = """💉 **Essential Vaccination Schedule:**
+
+• **FMD (Foot and Mouth Disease):** Every 6 months (pre-monsoon)
+• **HS (Haemorrhagic Septicaemia):** Annual (before monsoon)
+• **BQ (Black Quarter):** Annual (before monsoon)
+• **Anthrax:** Annual (as per vet advice)
+• **Brucellosis:** As per breeding program requirements
+
+*Follow local veterinary recommendations and government vaccination programs.*"""
+    
+    # Format breeding data with fallback
+    breeding_data = meta.get("breeding_info", {})
+    if isinstance(breeding_data, dict) and breeding_data:
+        breeding_str = "🐄 **Breeding Information:**\n\n"
+        for key, value in breeding_data.items():
+            clean_key = key.replace('_', ' ').title()
+            breeding_str += f"• **{clean_key}:** {value}\n"
+    else:
+        # Fallback breeding information
+        breeding_str = """🐄 **General Breeding Information:**
+
+• **Age at First Calving:** 30-36 months
+• **Gestation Period:** 280-285 days
+• **Calving Interval:** 12-15 months
+• **Breeding Season:** Year-round (optimal: October-February)
+• **Heat Duration:** 12-18 hours
+• **Heat Cycle:** 18-24 days
+• **Service Period:** 60-90 days post-calving
+
+*Maintain proper breeding records and consult veterinarian for optimal results.*"""
+    
     return {
         "origin": origin,
         "category": category,
@@ -481,6 +581,10 @@ def get_breed_metadata(breed, breed_info):
         "characteristics": characteristics,
         "milk_yield": milk_yield,
         "body_weight": body_weight_str,
+        "nutrition": nutrition_str,
+        "diseases": diseases_str,
+        "vaccination": vaccination_str,
+        "breeding": breeding_str,
         "raw_data": meta  # Include raw data for tabs
     }
 
@@ -610,6 +714,15 @@ with col2:
                     breed, conf, probs = predict_breed_demo(image, breed_classes)
                 
                 confidence_pct = conf * 100
+                
+                # Debug information to help identify breed mapping issues
+                st.write(f"**Debug:** Predicted breed name: '{breed}' (for troubleshooting)")
+                available_breeds = list(breed_info.keys())
+                if breed not in available_breeds:
+                    close_matches = [b for b in available_breeds if breed.lower() in b.lower() or b.lower() in breed.lower()]
+                    if close_matches:
+                        st.write(f"**Debug:** Close matches found: {close_matches}")
+                
                 metadata = get_breed_metadata(breed, breed_info)
                 
                 # Results display with clean information layout

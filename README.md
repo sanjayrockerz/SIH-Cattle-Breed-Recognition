@@ -93,9 +93,9 @@ The system recognizes 74+ breeds including:
 3. Connect your repository
 4. Deploy with one click
 
-## 🏆 SIH 2024
+## 🏆 SIH 2025
 
-This project was developed for Smart India Hackathon 2024 under the problem statement:
+This project was developed for Smart India Hackathon 2025 under the problem statement:
 **"AI-based Cattle Breed Identification and Management System"**
 
 ## 📞 Contact
@@ -104,7 +104,7 @@ This project was developed for Smart India Hackathon 2024 under the problem stat
 
 ## 🙏 Acknowledgments
 
-- Smart India Hackathon 2024 organizers
+- Smart India Hackathon 2025 organizers
 - Indian Council of Agricultural Research (ICAR)
 - EfficientNet model contributors
 - Streamlit community

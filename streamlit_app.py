@@ -179,206 +179,336 @@ def load_breed_data():
 
 @st.cache_data
 def load_custom_css():
-    """Load optimized CSS with caching - returns HTML string for st.markdown"""
+    """Enhanced farm-inspired CSS with vibrant colors and accessibility"""
     
-    # Core CSS optimizations inline for immediate rendering
     css_html = """
     <style>
-    /* SIH 2025 - Farm-Inspired Color Palette */
+    /* SIH 2025 - Enhanced Farm-Inspired Color Palette */
     :root {
-        --farm-green: #4a7c59;
-        --farm-green-light: #68a674;
-        --farm-green-dark: #3d6b4a;
-        --farm-yellow: #f4b942;
-        --farm-yellow-light: #f7c95a;
-        --farm-yellow-dark: #e6a73a;
-        --farm-brown: #8b5a3c;
-        --farm-brown-light: #a67554;
-        --farm-brown-dark: #74502f;
-        --farm-blue: #4682b4;
-        --farm-blue-light: #6ba3d0;
-        --farm-blue-dark: #3a6b8c;
-        --bg-surface: rgba(74, 124, 89, 0.08);
-        --bg-card: rgba(244, 185, 66, 0.12);
-        --border-light: rgba(74, 124, 89, 0.25);
-        --success: #4a7c59;
-        --warning: #f4b942;
-        --error: #dc3545;
+        --farm-green-primary: #2E7D32;
+        --farm-green-light: #4CAF50;
+        --farm-green-dark: #1B5E20;
+        --farm-yellow-primary: #F57F17;
+        --farm-yellow-light: #FFC107;
+        --farm-yellow-dark: #E65100;
+        --farm-brown-primary: #5D4037;
+        --farm-brown-light: #8D6E63;
+        --farm-brown-dark: #3E2723;
+        --farm-blue-primary: #1976D2;
+        --farm-blue-light: #42A5F5;
+        --farm-blue-dark: #0D47A1;
+        --farm-cream: #FFF8E1;
+        --farm-earth: #F3E5AB;
+        --text-dark: #2E2E2E;
+        --text-light: #FFFFFF;
+        --success-green: #4CAF50;
+        --warning-orange: #FF9800;
+        --error-red: #F44336;
+        --shadow-soft: 0 4px 12px rgba(0,0,0,0.1);
+        --shadow-strong: 0 8px 24px rgba(0,0,0,0.15);
+        --border-radius: 12px;
+        --border-radius-large: 20px;
     }
-    
+
     /* Performance optimizations */
     * { box-sizing: border-box; }
     
+    /* Global app styling */
+    .stApp {
+        background: linear-gradient(135deg, var(--farm-cream) 0%, var(--farm-earth) 100%);
+        font-family: 'Segoe UI', 'Arial', sans-serif;
+    }
+    
     .main .block-container {
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important;
+        padding: 2rem 1rem !important;
         max-width: 1200px !important;
     }
     
-    /* Hide Streamlit branding for production */
+    /* Hide Streamlit branding */
     #MainMenu { visibility: hidden !important; }
     footer { visibility: hidden !important; }
     .stApp > header[data-testid="stHeader"] { background: transparent !important; height: 0 !important; }
-    
-    /* Enhanced file upload zone with drag-drop styling */
-    .stFileUploader > div {
-        border: 2px dashed var(--primary-teal) !important;
-        border-radius: 12px !important;
-        background: var(--bg-surface) !important;
-        padding: 2rem !important;
-        transition: all 0.3s ease !important;
-        text-align: center !important;
+
+    /* Enhanced header with farm theme */
+    .hero-header {
+        background: linear-gradient(135deg, var(--farm-green-primary) 0%, var(--farm-blue-primary) 100%);
+        color: var(--text-light);
+        padding: 2rem;
+        border-radius: var(--border-radius-large);
+        text-align: center;
+        box-shadow: var(--shadow-strong);
+        margin-bottom: 2rem;
+        animation: fadeInUp 0.8s ease-out;
     }
-    
-    .stFileUploader > div:hover {
-        border-color: var(--primary-teal-dark) !important;
-        background: var(--bg-card) !important;
+
+    .hero-header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-header h3 {
+        margin: 0.5rem 0;
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .hero-header p {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+        opacity: 0.8;
+    }
+
+    /* Enhanced sidebar styling */
+    .css-1d391kg {
+        background: linear-gradient(180deg, var(--farm-green-light) 0%, var(--farm-green-primary) 100%) !important;
+        border-radius: 0 var(--border-radius-large) var(--border-radius-large) 0 !important;
+        padding: 1.5rem 1rem !important;
+    }
+
+    /* Farm-themed metrics */
+    .stMetric {
+        background: var(--text-light) !important;
+        padding: 1rem !important;
+        border-radius: var(--border-radius) !important;
+        box-shadow: var(--shadow-soft) !important;
+        border-left: 4px solid var(--farm-green-primary) !important;
+        margin-bottom: 1rem !important;
+        transition: transform 0.2s ease !important;
+    }
+
+    .stMetric:hover {
         transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(32, 135, 147, 0.15) !important;
+        box-shadow: var(--shadow-strong) !important;
     }
-    
+
+    .stMetric label {
+        color: var(--farm-green-dark) !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+    }
+
+    .stMetric > div > div {
+        color: var(--farm-brown-primary) !important;
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+    }
+
+    /* Enhanced file uploader */
+    .stFileUploader > div {
+        background: linear-gradient(135deg, var(--text-light) 0%, var(--farm-cream) 100%) !important;
+        border: 3px dashed var(--farm-green-primary) !important;
+        border-radius: var(--border-radius-large) !important;
+        padding: 2rem !important;
+        text-align: center !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .stFileUploader > div:hover {
+        border-color: var(--farm-blue-primary) !important;
+        background: linear-gradient(135deg, var(--farm-cream) 0%, var(--farm-earth) 100%) !important;
+        transform: scale(1.02) !important;
+    }
+
     .stFileUploader > div > div {
         border: none !important;
         background: transparent !important;
     }
-    
-    /* Button enhancements */
+
+    /* Enhanced buttons */
     .stButton > button {
-        border-radius: 8px !important;
+        background: linear-gradient(135deg, var(--farm-green-primary) 0%, var(--farm-green-light) 100%) !important;
+        color: var(--text-light) !important;
         border: none !important;
-        transition: all 0.3s ease !important;
+        border-radius: var(--border-radius) !important;
+        padding: 0.75rem 2rem !important;
+        font-size: 1.1rem !important;
         font-weight: 600 !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        box-shadow: var(--shadow-soft) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
     }
-    
-    .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-dark) 100%) !important;
-        color: white !important;
-    }
-    
+
     .stButton > button:hover {
+        background: linear-gradient(135deg, var(--farm-blue-primary) 0%, var(--farm-blue-light) 100%) !important;
         transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        box-shadow: var(--shadow-strong) !important;
     }
-    
-    /* Metrics styling with farm colors */
-    .stMetric {
-        background: var(--bg-surface) !important;
-        padding: 1rem !important;
-        border-radius: 8px !important;
-        border: 1px solid var(--border-light) !important;
+
+    /* Enhanced tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        background: var(--text-light) !important;
+        border-radius: var(--border-radius) !important;
+        padding: 0.5rem !important;
+        gap: 0.5rem !important;
+        box-shadow: var(--shadow-soft) !important;
     }
-    
-    .stMetric > div > div {
-        color: var(--farm-green) !important;
-        font-weight: 700 !important;
-    }
-    
-    /* Tab styling */
-    .stTabs [data-baseweb="tab-list"] { gap: 8px; }
+
     .stTabs [data-baseweb="tab"] {
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        background: var(--bg-surface);
-        border: 1px solid var(--border-light);
+        background: transparent !important;
+        border-radius: var(--border-radius) !important;
+        color: var(--text-dark) !important;
+        font-weight: 600 !important;
+        padding: 0.75rem 1.5rem !important;
+        transition: all 0.3s ease !important;
     }
+
     .stTabs [aria-selected="true"] {
-        background: var(--farm-green) !important;
-        color: white !important;
+        background: linear-gradient(135deg, var(--farm-green-primary) 0%, var(--farm-blue-primary) 100%) !important;
+        color: var(--text-light) !important;
+        box-shadow: var(--shadow-soft) !important;
     }
-    
-    /* Form and input styling */
+
+    /* Enhanced success/error messages */
+    .stSuccess {
+        background: linear-gradient(135deg, var(--success-green) 0%, var(--farm-green-light) 100%) !important;
+        color: var(--text-light) !important;
+        border-radius: var(--border-radius) !important;
+        border: none !important;
+        box-shadow: var(--shadow-soft) !important;
+        animation: slideInRight 0.5s ease !important;
+    }
+
+    .stError {
+        background: linear-gradient(135deg, var(--error-red) 0%, #E57373 100%) !important;
+        color: var(--text-light) !important;
+        border-radius: var(--border-radius) !important;
+        border: none !important;
+        box-shadow: var(--shadow-soft) !important;
+        animation: shake 0.5s ease !important;
+    }
+
+    .stInfo {
+        background: linear-gradient(135deg, var(--farm-blue-primary) 0%, var(--farm-blue-light) 100%) !important;
+        color: var(--text-light) !important;
+        border-radius: var(--border-radius) !important;
+        border: none !important;
+        box-shadow: var(--shadow-soft) !important;
+    }
+
+    .stWarning {
+        background: linear-gradient(135deg, var(--warning-orange) 0%, var(--farm-yellow-primary) 100%) !important;
+        color: var(--text-light) !important;
+        border-radius: var(--border-radius) !important;
+        border: none !important;
+        box-shadow: var(--shadow-soft) !important;
+    }
+
+    /* Progress indicators */
+    .stProgress > div > div {
+        background: linear-gradient(90deg, var(--farm-green-primary) 0%, var(--farm-yellow-primary) 100%) !important;
+        border-radius: var(--border-radius) !important;
+    }
+
+    /* Form styling */
     .stForm {
-        border: 1px solid var(--border-light) !important;
-        border-radius: 12px !important;
-        background: var(--bg-surface) !important;
+        border: 1px solid var(--farm-green-primary) !important;
+        border-radius: var(--border-radius) !important;
+        background: var(--text-light) !important;
         padding: 1.5rem !important;
+        box-shadow: var(--shadow-soft) !important;
     }
-    
+
     .stTextInput > div > div, .stTextArea > div > div, .stSelectbox > div > div, .stDateInput > div > div {
-        border-radius: 8px !important;
-        border: 1px solid var(--border-light) !important;
+        border-radius: var(--border-radius) !important;
+        border: 2px solid var(--farm-green-light) !important;
+        transition: border-color 0.3s ease !important;
     }
-    
-    /* Alert styling */
-    .stSuccess { border-radius: 8px !important; border-left: 4px solid var(--success) !important; }
-    .stError { border-radius: 8px !important; border-left: 4px solid var(--error) !important; }
-    .stWarning { border-radius: 8px !important; border-left: 4px solid var(--warning) !important; }
-    .stInfo { border-radius: 8px !important; border-left: 4px solid var(--farm-blue) !important; }
-    
-    /* Custom utility classes */
-    /* Hero header with farm-inspired gradient */
-    .hero-header {
-        background: linear-gradient(135deg, var(--farm-green) 0%, var(--farm-green-dark) 50%, var(--farm-brown) 100%);
-        color: white;
-        padding: 2rem;
-        border-radius: 12px;
-        margin-bottom: 2rem;
-        text-align: center;
-        box-shadow: 0 4px 16px rgba(74, 124, 89, 0.3);
+
+    .stTextInput > div > div:focus, .stTextArea > div > div:focus {
+        border-color: var(--farm-blue-primary) !important;
+        box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2) !important;
     }
-    
-    .result-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-light);
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    /* Image styling */
+    .stImage {
+        border-radius: var(--border-radius) !important;
+        box-shadow: var(--shadow-soft) !important;
+        overflow: hidden !important;
     }
-    
-    .tips-card {
-        background: var(--bg-surface);
-        padding: 1rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border-left: 4px solid var(--farm-yellow);
+
+    /* Custom animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
-    
-    .footer-card {
-        background: var(--bg-card);
-        border-radius: 12px;
-        padding: 2rem;
-        margin-top: 2rem;
-        text-align: center;
-        border: 1px solid var(--border-light);
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
-    
-    /* Smooth animations */
-    .fade-in { animation: fadeIn 0.5s ease-in; }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
     }
-    
-    /* Chart styling */
-    .js-plotly-plot {
-        border-radius: 8px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-    }
-    
-    /* Mobile responsive optimizations */
+
+    /* Mobile responsiveness */
     @media (max-width: 768px) {
-        .main .block-container { padding: 0.5rem !important; }
-        .hero-header { padding: 1.5rem; }
-        .result-card { padding: 1rem; }
-        .stFileUploader > div { padding: 1.5rem !important; }
+        .hero-header h1 {
+            font-size: 2rem !important;
+        }
+        
+        .stButton > button {
+            padding: 0.5rem 1rem !important;
+            font-size: 1rem !important;
+        }
+        
+        .stFileUploader > div {
+            padding: 1.5rem !important;
+        }
+        
+        .stMetric {
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .main .block-container {
+            padding: 1rem 0.5rem !important;
+        }
     }
-    
-    /* Accessibility and performance */
+
+    /* Accessibility improvements */
+    .stButton > button:focus,
+    .stTabs [data-baseweb="tab"]:focus {
+        outline: 3px solid var(--farm-yellow-primary) !important;
+        outline-offset: 2px !important;
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+        :root {
+            --farm-green-primary: #1B5E20;
+            --farm-blue-primary: #0D47A1;
+            --text-dark: #000000;
+        }
+    }
+
+    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after {
+        * {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
             transition-duration: 0.01ms !important;
-        }
-    }
-    
-    @media (prefers-contrast: high) {
-        :root {
-            --primary-teal: #000;
-            --border-light: #333;
-            --bg-surface: #f0f0f0;
-            --bg-card: #e0e0e0;
         }
     }
     </style>
@@ -826,13 +956,121 @@ st.markdown("""
 model_status = "🤖 **AI Model**: " + ("✅ Loaded" if model_available else "🔄 Demo Mode")
 st.markdown(f"<div style='text-align: center; padding: 0.5rem; background: rgba(32,135,147,0.1); border-radius: 8px; margin-bottom: 1rem;'>{model_status}</div>", unsafe_allow_html=True)
 
-# Sidebar
+# Sidebar with language selection
 st.sidebar.header("📊 Dashboard")
+
+# Language selection at the top of sidebar
+st.sidebar.markdown("### 🌐 Language / भाषा / மொழி")
+language = st.sidebar.selectbox(
+    "Select Language",
+    options=["English", "हिंदी (Hindi)", "தமிழ் (Tamil)", "తెలుగు (Telugu)", "ಕನ್ನಡ (Kannada)"],
+    index=0,
+    help="Choose your preferred language"
+)
+
+# Language translations dictionary
+translations = {
+    "English": {
+        "dashboard": "📊 Dashboard",
+        "animals_registered": "🐄 Animals Registered",
+        "overdue_vaccinations": "⚠️ Overdue Vaccinations",
+        "register_new_animal": "➕ Register New Animal",
+        "upload_image": "📷 Upload Cattle/Buffalo Image",
+        "drag_drop": "🖱️ Drag and drop or click to browse",
+        "analyze_breed": "🔍 Analyze Breed",
+        "tips_title": "💡 Photo Tips for Best AI Recognition",
+        "predicted_breed": "🎯 Predicted Breed",
+        "confidence": "📊 AI Confidence Level",
+        "cattle_detected": "✅ Cattle detected",
+        "not_cattle": "❌ Not a cattle/buffalo image",
+        "upload_instruction": "👆 Upload an image to get started",
+        "supports": "🐄 Supports cattle and buffalo breeds",
+        "ai_powered": "🔬 AI-powered analysis with EfficientNet-B3",
+        "mobile_optimized": "📱 Optimized for mobile photography"
+    },
+    "हिंदी (Hindi)": {
+        "dashboard": "📊 डैशबोर्ड",
+        "animals_registered": "🐄 पंजीकृत पशु",
+        "overdue_vaccinations": "⚠️ बकाया टीकाकरण",
+        "register_new_animal": "➕ नया पशु पंजीकृत करें",
+        "upload_image": "📷 गाय/भैंस की तस्वीर अपलोड करें",
+        "drag_drop": "🖱️ खींचें और छोड़ें या ब्राउज़ करने के लिए क्लिक करें",
+        "analyze_breed": "🔍 नस्ल का विश्लेषण करें",
+        "tips_title": "💡 बेहतर AI पहचान के लिए फोटो टिप्स",
+        "predicted_breed": "🎯 अनुमानित नस्ल",
+        "confidence": "📊 AI विश्वास स्तर",
+        "cattle_detected": "✅ पशु का पता चला",
+        "not_cattle": "❌ यह गाय/भैंस की तस्वीर नहीं है",
+        "upload_instruction": "👆 शुरू करने के लिए एक तस्वीर अपलोड करें",
+        "supports": "🐄 गाय और भैंस की नस्लों का समर्थन करता है",
+        "ai_powered": "🔬 EfficientNet-B3 के साथ AI-संचालित विश्लेषण",
+        "mobile_optimized": "📱 मोबाइल फोटोग्राफी के लिए अनुकूलित"
+    },
+    "தமிழ் (Tamil)": {
+        "dashboard": "📊 டாஷ்போர்டு",
+        "animals_registered": "🐄 பதிவு செய்யப்பட்ட மாடுகள்",
+        "overdue_vaccinations": "⚠️ தாமதமான தடுப்பூசிகள்",
+        "register_new_animal": "➕ புதிய மாட்டை பதிவு செய்யவும்",
+        "upload_image": "📷 பசு/எருமை புகைப்படத்தை பதிவேற்றவும்",
+        "drag_drop": "🖱️ இழுத்து விடுங்கள் அல்லது உலாவ கிளிக் செய்யுங்கள்",
+        "analyze_breed": "🔍 இனத்தை பகுப்பாய்வு செய்யுங்கள்",
+        "tips_title": "💡 சிறந்த AI அங்கீகாரத்திற்கான புகைப்பட குறிப்புகள்",
+        "predicted_breed": "🎯 கணிக்கப்பட்ட இனம்",
+        "confidence": "📊 AI நம்பிக்கை நிலை",
+        "cattle_detected": "✅ மாடு கண்டறியப்பட்டது",
+        "not_cattle": "❌ இது பசு/எருமை படம் அல்ல",
+        "upload_instruction": "👆 தொடங்க ஒரு படத்தைப் பதிவேற்றவும்",
+        "supports": "🐄 பசு மற்றும் எருமை இனங்களை ஆதரிக்கிறது",
+        "ai_powered": "🔬 EfficientNet-B3 உடன் AI-இயங்கும் பகுப்பாய்வு",
+        "mobile_optimized": "📱 மொபைல் புகைப்படம் எடுப்பதற்கு உகந்தது"
+    },
+    "తెలుగు (Telugu)": {
+        "dashboard": "📊 డాష్‌బోర్డ్",
+        "animals_registered": "🐄 నమోదైన పశువులు",
+        "overdue_vaccinations": "⚠️ వాయిదా టీకాలు",
+        "register_new_animal": "➕ కొత్త పశువును నమోదు చేయండి",
+        "upload_image": "📷 ఆవు/గేదె చిత్రాన్ని అప్‌లోడ్ చేయండి",
+        "drag_drop": "🖱️ లాగి వదలండి లేదా బ్రౌజ్ చేయడానికి క్లిక్ చేయండి",
+        "analyze_breed": "🔍 జాతిని విశ్లేషించండి",
+        "tips_title": "💡 మెరుగైన AI గుర్తింపు కోసం ఫోటో చిట్కాలు",
+        "predicted_breed": "🎯 అంచనా వేయబడిన జాతి",
+        "confidence": "📊 AI విశ్వాస స్థాయి",
+        "cattle_detected": "✅ పశువు గుర్తించబడింది",
+        "not_cattle": "❌ ఇది ఆవు/గేదె చిత్రం కాదు",
+        "upload_instruction": "👆 ప్రారంభించడానికి చిత్రాన్ని అప్‌లోడ్ చేయండి",
+        "supports": "🐄 ఆవు మరియు గేదె జాతులకు మద్దతు ఇస్తుంది",
+        "ai_powered": "🔬 EfficientNet-B3తో AI-శక్తితో విశ్లేషణ",
+        "mobile_optimized": "📱 మొబైల్ ఫోటోగ్రఫీ కోసం అనుకూలీకరించబడింది"
+    },
+    "ಕನ್ನಡ (Kannada)": {
+        "dashboard": "📊 ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+        "animals_registered": "🐄 ನೋಂದಾಯಿತ ಪ್ರಾಣಿಗಳು",
+        "overdue_vaccinations": "⚠️ ಮುಂದೂಡಲ್ಪಟ್ಟ ಲಸಿಕೆಗಳು",
+        "register_new_animal": "➕ ಹೊಸ ಪ್ರಾಣಿಯನ್ನು ನೋಂದಾಯಿಸಿ",
+        "upload_image": "📷 ಹಸು/ಎಮ್ಮೆ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+        "drag_drop": "🖱️ ಎಳೆದು ಬಿಡಿ ಅಥವಾ ಬ್ರೌಸ್ ಮಾಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ",
+        "analyze_breed": "🔍 ಜಾತಿಯನ್ನು ವಿಶ್ಲೇಷಿಸಿ",
+        "tips_title": "💡 ಉತ್ತಮ AI ಗುರುತಿಸುವಿಕೆಗಾಗಿ ಫೋಟೋ ಸಲಹೆಗಳು",
+        "predicted_breed": "🎯 ಊಹಿಸಲಾದ ಜಾತಿ",
+        "confidence": "📊 AI ವಿಶ್ವಾಸ ಮಟ್ಟ",
+        "cattle_detected": "✅ ಪ್ರಾಣಿ ಪತ್ತೆಯಾಗಿದೆ",
+        "not_cattle": "❌ ಇದು ಹಸು/ಎಮ್ಮೆ ಚಿತ್ರವಲ್ಲ",
+        "upload_instruction": "👆 ಪ್ರಾರಂಭಿಸಲು ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+        "supports": "🐄 ಹಸು ಮತ್ತು ಎಮ್ಮೆ ಜಾತಿಗಳನ್ನು ಬೆಂಬಲಿಸುತ್ತದೆ",
+        "ai_powered": "🔬 EfficientNet-B3 ನೊಂದಿಗೆ AI-ಚಾಲಿತ ವಿಶ್ಲೇಷಣೆ",
+        "mobile_optimized": "📱 ಮೊಬೈಲ್ ಫೋಟೋಗ್ರಫಿಗಾಗಿ ಅನುಕೂಲಿತ"
+    }
+}
+
+# Get current language translations
+t = translations.get(language, translations["English"])
+
+# Sidebar content with translations
 today = datetime.today().date()
 c.execute("SELECT name,breed,last_vaccination_date FROM animals")
 animals_db = c.fetchall()
 
-st.sidebar.metric("🐄 Animals Registered", len(animals_db))
+st.sidebar.metric(t["animals_registered"], len(animals_db))
 
 # Calculate overdue vaccinations
 overdue_count = 0
@@ -845,9 +1083,9 @@ for animal in animals_db:
     except:
         continue
 
-st.sidebar.metric("⚠️ Overdue Vaccinations", overdue_count)
+st.sidebar.metric(t["overdue_vaccinations"], overdue_count)
 
-if st.sidebar.button("➕ Register New Animal"):
+if st.sidebar.button(t["register_new_animal"]):
     st.query_params = {"action": ["register"]}
 
 # Step-by-step workflow indicator

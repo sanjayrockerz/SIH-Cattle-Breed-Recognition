@@ -1090,15 +1090,15 @@ if st.sidebar.button(t["register_new_animal"]):
 
 # Enhanced step-by-step workflow indicator with highlighted colors
 st.markdown("""
-<div style="background: linear-gradient(135deg, var(--farm-green-primary) 0%, var(--farm-blue-primary) 100%); 
-           padding: 2rem; border-radius: 20px; margin: 2rem 0; color: white; box-shadow: var(--shadow-strong);">
+<div style="background: linear-gradient(135deg, #2E7D32 0%, #1976D2 100%); 
+           padding: 2rem; border-radius: 20px; margin: 2rem 0; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
     <h2 style="margin: 0 0 2rem 0; text-align: center; font-size: 2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
         🚀 Simple 3-Step Process for Breed Recognition
     </h2>
     <div style="display: flex; justify-content: space-around; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem;">
         
         <!-- Step 1 with Green Highlight -->
-        <div style="background: linear-gradient(145deg, var(--farm-green-light) 0%, var(--farm-green-primary) 100%); 
+        <div style="background: linear-gradient(145deg, #4CAF50 0%, #2E7D32 100%); 
                     padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
                     box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3); transform: scale(1.02);
                     border: 3px solid rgba(255,255,255,0.3); color: #1a1a1a;">
@@ -1111,7 +1111,7 @@ st.markdown("""
         </div>
         
         <!-- Step 2 with Yellow Highlight -->
-        <div style="background: linear-gradient(145deg, var(--farm-yellow-light) 0%, var(--farm-yellow-primary) 100%); 
+        <div style="background: linear-gradient(145deg, #FFC107 0%, #F57F17 100%); 
                     padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
                     box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4); transform: scale(1.02);
                     border: 3px solid rgba(255,255,255,0.3); color: #1a1a1a;">
@@ -1124,7 +1124,7 @@ st.markdown("""
         </div>
         
         <!-- Step 3 with Blue Highlight -->
-        <div style="background: linear-gradient(145deg, var(--farm-blue-light) 0%, var(--farm-blue-primary) 100%); 
+        <div style="background: linear-gradient(145deg, #42A5F5 0%, #1976D2 100%); 
                     padding: 1.5rem; border-radius: 15px; text-align: center; min-width: 200px; 
                     box-shadow: 0 8px 20px rgba(66, 165, 245, 0.4); transform: scale(1.02);
                     border: 3px solid rgba(255,255,255,0.3); color: #1a1a1a;">
@@ -1140,7 +1140,7 @@ st.markdown("""
     <!-- Progress Bar Animation -->
     <div style="margin-top: 2rem; padding: 0 1rem;">
         <div style="background: rgba(255,255,255,0.2); height: 8px; border-radius: 4px; overflow: hidden;">
-            <div style="background: linear-gradient(90deg, var(--farm-green-light) 33%, var(--farm-yellow-light) 66%, var(--farm-blue-light) 100%); 
+            <div style="background: linear-gradient(90deg, #4CAF50 33%, #FFC107 66%, #42A5F5 100%); 
                         height: 100%; width: 100%; border-radius: 4px; 
                         animation: progressFlow 3s ease-in-out infinite;"></div>
         </div>
@@ -1158,6 +1158,7 @@ st.markdown("""
     100% { transform: translateX(100%); }
 }
 </style>
+""", unsafe_allow_html=True)
 """, unsafe_allow_html=True)
 
 # Main interface

@@ -38,7 +38,19 @@ transform = transforms.Compose([
 ])
 
 
-st.set_page_config(page_title="Breed Recognition & Vaccination", layout="wide", initial_sidebar_state="expanded")
+# Import breed_info from db.breed_db
+
+
+# local_css function and streamlit setup moved to streamlit_app.py
+def local_css(file_name="style.css"):
+    try:
+        with open(file_name, encoding="utf-8") as f:
+            css = f.read()
+            st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+    except Exception:
+        st.sidebar.warning("Could not load style.css; using default styling.")
+
+local_css("style.css")
 
 def local_css(file_name="style.css"):
     try:

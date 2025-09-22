@@ -1175,19 +1175,7 @@ with col1:
         label_visibility="collapsed"
     )
     
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, rgba(32,135,147,0.05), rgba(32,135,147,0.1)); 
-                padding: 1rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #208793;">
-        <h4 style="margin: 0 0 0.5rem 0; color: #208793;">💡 Tips for Best Results</h4>
-        <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem;">
-            <li>🎯 Center the animal in frame</li>
-            <li>☀️ Use natural lighting</li>
-            <li>📐 Include full body or clear face</li>
-            <li>🚫 Avoid blurry/dark images</li>
-            <li>📱 Take multiple angles if unsure</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown('<div style="background: linear-gradient(135deg, rgba(32,135,147,0.05), rgba(32,135,147,0.1)); padding: 1rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #208793;"><h4 style="margin: 0 0 0.5rem 0; color: #208793;">💡 Tips for Best Results</h4><ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem;"><li>🎯 Center the animal in frame</li><li>☀️ Use natural lighting</li><li>📐 Include full body or clear face</li><li>🚫 Avoid blurry/dark images</li><li>📱 Take multiple angles if unsure</li></ul></div>', unsafe_allow_html=True)
     
     analyze_btn = st.button("🔍 Analyze Breed", type="primary", use_container_width=True)
 

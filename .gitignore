@@ -21,9 +21,9 @@ wheels/
 *.egg
 MANIFEST
 
-# PyTorch models
-*.pth
-*.pt
+# Note: *.pth files now tracked via Git LFS (see .gitattributes)
+# PyTorch checkpoint files excluded: 
+# *.pt (but not *.pth which are tracked)
 
 # Virtual environments
 .env

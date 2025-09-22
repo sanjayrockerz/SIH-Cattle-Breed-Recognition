@@ -1,0 +1,313 @@
+/* SIH 2025 - Streamlit Optimized CSS */
+/* Performance-focused stylesheet for cattle breed recognition app */
+
+:root {
+  /* Core theme colors optimized for performance */
+  --primary-teal: #208793;
+  --primary-teal-light: #32a5b3;
+  --primary-teal-dark: #1a6b75;
+  --accent-gradient: linear-gradient(135deg, #208793 0%, #1a6b75 100%);
+  --bg-surface: rgba(32, 135, 147, 0.05);
+  --bg-card: rgba(32, 135, 147, 0.1);
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-light: rgba(32, 135, 147, 0.2);
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Streamlit specific optimizations */
+.main .block-container {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+  max-width: 1200px !important;
+}
+
+/* Hide Streamlit branding for production */
+.stApp > header[data-testid="stHeader"] {
+  background: transparent;
+  height: 0;
+}
+
+#MainMenu {
+  visibility: hidden;
+}
+
+footer {
+  visibility: hidden;
+}
+
+/* Enhanced file uploader styling */
+.stFileUploader > div {
+  border: 2px dashed var(--primary-teal) !important;
+  border-radius: 12px !important;
+  background: var(--bg-surface) !important;
+  padding: 2rem !important;
+  transition: all 0.3s ease !important;
+  text-align: center !important;
+}
+
+.stFileUploader > div:hover {
+  border-color: var(--primary-teal-dark) !important;
+  background: var(--bg-card) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(32, 135, 147, 0.15) !important;
+}
+
+.stFileUploader > div > div {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Drag and drop enhancement */
+.uploadedFile {
+  border: 2px dashed var(--primary-teal) !important;
+  border-radius: 12px !important;
+  background: var(--bg-surface) !important;
+}
+
+/* Button styling */
+.stButton > button {
+  border-radius: 8px !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
+}
+
+.stButton > button[kind="primary"] {
+  background: var(--accent-gradient) !important;
+  color: white !important;
+}
+
+.stButton > button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Metrics styling */
+.stMetric {
+  background: var(--bg-surface) !important;
+  padding: 1rem !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.stMetric > div > div {
+  color: var(--primary-teal) !important;
+  font-weight: 700 !important;
+}
+
+/* Tab styling */
+.stTabs [data-baseweb="tab-list"] {
+  gap: 8px;
+}
+
+.stTabs [data-baseweb="tab"] {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+}
+
+.stTabs [aria-selected="true"] {
+  background: var(--primary-teal) !important;
+  color: white !important;
+}
+
+/* Dataframe styling */
+.stDataFrame {
+  border: 1px solid var(--border-light) !important;
+  border-radius: 8px !important;
+}
+
+/* Expander styling */
+.stExpander {
+  border: 1px solid var(--border-light) !important;
+  border-radius: 8px !important;
+  background: var(--bg-surface) !important;
+}
+
+/* Form styling */
+.stForm {
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px !important;
+  background: var(--bg-surface) !important;
+  padding: 1.5rem !important;
+}
+
+/* Selectbox styling */
+.stSelectbox > div > div {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+/* Text input styling */
+.stTextInput > div > div {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.stTextArea > div > div {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+/* Date input styling */
+.stDateInput > div > div {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+/* Sidebar styling */
+.css-1d391kg {
+  background: var(--bg-surface) !important;
+}
+
+/* Success/error messages */
+.stSuccess {
+  border-radius: 8px !important;
+  border-left: 4px solid var(--success) !important;
+}
+
+.stError {
+  border-radius: 8px !important;
+  border-left: 4px solid var(--error) !important;
+}
+
+.stWarning {
+  border-radius: 8px !important;
+  border-left: 4px solid var(--warning) !important;
+}
+
+.stInfo {
+  border-radius: 8px !important;
+  border-left: 4px solid var(--primary-teal) !important;
+}
+
+/* Spinner styling */
+.stSpinner > div {
+  border-top-color: var(--primary-teal) !important;
+}
+
+/* Progress bar styling */
+.stProgress > div > div {
+  background: var(--primary-teal) !important;
+}
+
+/* Chart container styling */
+.js-plotly-plot {
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Custom utility classes */
+.hero-header {
+  background: var(--accent-gradient);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(32, 135, 147, 0.3);
+}
+
+.result-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tips-card {
+  background: var(--bg-surface);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border-left: 4px solid var(--primary-teal);
+}
+
+.footer-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  text-align: center;
+  border: 1px solid var(--border-light);
+}
+
+/* Animation classes for performance */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Mobile responsive optimizations */
+@media (max-width: 768px) {
+  .main .block-container {
+    padding: 0.5rem !important;
+  }
+  
+  .hero-header {
+    padding: 1.5rem;
+  }
+  
+  .result-card {
+    padding: 1rem;
+  }
+  
+  .stFileUploader > div {
+    padding: 1.5rem !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-teal: #000;
+    --border-light: #333;
+    --bg-surface: #f0f0f0;
+    --bg-card: #e0e0e0;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .stSidebar, .stButton, .stFileUploader {
+    display: none !important;
+  }
+  
+  .main .block-container {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}

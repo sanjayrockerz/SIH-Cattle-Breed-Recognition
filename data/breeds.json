@@ -1,314 +1,1075 @@
 {
-  "Gir": {
-    "type": "indigenous", 
-    "category": "dual_purpose", 
-    "origin": "Gujarat",
-    "characteristics": "Compact body, convex forehead, long pendulous ears, docile temperament, heat tolerant",
-    "milk_yield": "1200-1800 kg/lactation",
-    "body_weight": "300-400 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "2.5-3% of body weight",
-      "concentrate": "300-400g per liter of milk",
-      "green_fodder": "15-20 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "30-50 liters/day"
+    "Alambadi": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Tamil Nadu ",
+        "characteristics": "Medium-sized, compact body, grey or dark grey coat, straight horns pointing backward, sturdy legs",
+        "milk_yield": "500-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter",
+            "Parasitic infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "Theileriosis (if endemic)", "frequency": "as advised", "season": "as per outbreak risk"}
+        ]
+    }
+,
+
+    "Ayrshire": {
+        "type": "exotic",
+        "category": "dairy",
+        "origin": "Scotland",
+        "characteristics": "Medium-sized, red and white markings, strong udder, hardy and adaptable",
+        "milk_yield": "5000-7000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3-3.5% of body weight",
+            "concentrate": "400-450g per liter of milk",
+            "green_fodder": "20-25 kg/day",
+            "water": "60-80 liters/day"
+        },
+        "common_diseases": [
+            "Mastitis",
+            "Foot and Mouth Disease",
+            "Metabolic disorders (Ketosis, Milk Fever)"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["Foot and Mouth Disease", "Mastitis", "Parasitic infections", "Tick fever"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365},
-      {"vaccine": "BQ", "frequency": "annual", "season": "pre-monsoon", "due_in_days": 365}
-    ]
-  },
-  "Holstein Friesian": {
-    "type": "exotic", 
-    "category": "dairy", 
-    "origin": "Netherlands",
-    "characteristics": "Large size, black and white patches, very high milk producers, heat sensitive",
-    "milk_yield": "7000-10000 kg/lactation",
-    "body_weight": "550-700 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "3-3.5% of body weight",
-      "concentrate": "400-500g per liter of milk",
-      "green_fodder": "25-30 kg/day",
-      "dry_fodder": "4-6 kg/day",
-      "water": "80-100 liters/day"
+
+"Bargur": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Tamil Nadu ",
+        "characteristics": "Medium build, reddish-brown with white markings, aggressive temperament, strong endurance",
+        "milk_yield": "500-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter",
+            "Parasitic infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Brown Swiss": {
+        "type": "exotic",
+        "category": "dairy",
+        "origin": "Switzerland",
+        "characteristics": "Large, brown to grey coat, strong legs, docile temperament, high milk fat and protein",
+        "milk_yield": "6000-9000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3-3.5% of body weight",
+            "concentrate": "400-500g per liter of milk",
+            "green_fodder": "20-30 kg/day",
+            "water": "70-90 liters/day"
+        },
+        "common_diseases": [
+            "Mastitis",
+            "Milk Fever",
+            "Ketosis",
+            "Foot and Mouth Disease"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Dangi": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Maharashtra ",
+        "characteristics": "Medium-sized, white coat with black spots, strong hooves, resistant to heavy rainfall and muddy terrain",
+        "milk_yield": "500-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Deoni": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Maharashtra, Karnataka, Telangana (Deoni region)",
+        "characteristics": "Medium to large size, white coat with black spots, strong body, good milk and draught quality",
+        "milk_yield": "1200-1500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Mastitis",
+            "Haemorrhagic Septicaemia",
+            "Parasitic infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Guernsey": {
+        "type": "exotic",
+        "category": "dairy",
+        "origin": "Channel Islands (Guernsey, UK)",
+        "characteristics": "Medium-sized, fawn and white coat, docile, high butterfat milk with golden color",
+        "milk_yield": "4500-6000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3-3.5% of body weight",
+            "concentrate": "400-450g per liter of milk",
+            "green_fodder": "20-25 kg/day",
+            "water": "50-70 liters/day"
+        },
+        "common_diseases": [
+            "Mastitis",
+            "Milk Fever",
+            "Ketosis",
+            "Foot and Mouth Disease"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+    "Hallikar": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Karnataka",
+        "characteristics": "Medium-sized, grey to dark grey coat, long horns curved backward, highly energetic and strong draught power",
+        "milk_yield": "500-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Hariana": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Haryana, Uttar Pradesh, Rajasthan",
+        "characteristics": "White to grey coat, compact body, good draught capacity, decent milk yield",
+        "milk_yield": "1400-1800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Mastitis",
+            "Haemorrhagic Septicaemia"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Holstein Friesian": {
+        "type": "exotic",
+        "category": "dairy",
+        "origin": "Netherlands (Friesland)",
+        "characteristics": "Large size, black and white patches, very high milk producers, sensitive to tropical heat",
+        "milk_yield": "7000-10000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3-3.5% of body weight",
+            "concentrate": "400-500g per liter of milk",
+            "green_fodder": "25-30 kg/day",
+            "water": "80-100 liters/day"
+        },
+        "common_diseases": [
+            "Mastitis",
+            "Milk Fever",
+            "Ketosis",
+            "Foot and Mouth Disease"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Jersey": {
+        "type": "exotic",
+        "category": "dairy",
+        "origin": "Channel Islands (Jersey, UK)",
+        "characteristics": "Small size, light brown coat, docile temperament, milk rich in butterfat",
+        "milk_yield": "4500-6000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3-3.5% of body weight",
+            "concentrate": "400-450g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "50-70 liters/day"
+        },
+        "common_diseases": [
+            "Mastitis",
+            "Milk Fever",
+            "Ketosis",
+            "Foot and Mouth Disease"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Kangayam": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Tamil Nadu (Erode, Coimbatore districts)",
+        "characteristics": "Medium build, grey or white coat, strong muscular body, excellent draught power",
+        "milk_yield": "600-900 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+"cattle": {
+    "Kankrej": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Gujarat (Kankrej region), Rajasthan",
+        "characteristics": "Large body, lyre-shaped horns, grey to silver coat, good milk yield and strong draught power",
+        "milk_yield": "1200-2000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Mastitis",
+            "Haemorrhagic Septicaemia"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+},
+
+    "Khillari": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Maharashtra",
+        "characteristics": "Compact body, white to grey coat, long and tapering horns, known for speed and endurance in ploughing",
+        "milk_yield": "500-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Krishna Valley": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Karnataka and Maharashtra",
+        "characteristics": "Large body, white to grey coat, long and thick horns, known for heavy draught capacity",
+        "milk_yield": "600-900 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Nagori": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Rajasthan",
+        "characteristics": "Tall, light grey to white coat, strong legs, famous for fast trotting and cart pulling",
+        "milk_yield": "500-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Nimari": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Madhya Pradesh ",
+        "characteristics": "Medium build, red or white coat with patches, used for both milk and draught",
+        "milk_yield": "800-1200 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "250-300g per liter of milk",
+            "green_fodder": "12-18 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Mastitis",
+            "Haemorrhagic Septicaemia"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Ongole": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Andhra Pradesh",
+        "characteristics": "Large size, white or grey coat, strong body, used for draught and crossbreeding for beef in other countries",
+        "milk_yield": "1000-1500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Rathi": {
+        "type": "indigenous",
+        "category": "dairy",
+        "origin": "Rajasthan",
+        "characteristics": "Medium size, white coat with brown patches, hardy and good milch breed",
+        "milk_yield": "1500-2000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Mastitis",
+            "Haemorrhagic Septicaemia"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Red Dane": {
+        "type": "exotic",
+        "category": "dairy",
+        "origin": "Denmark",
+        "characteristics": "Large, reddish-brown coat, strong frame, high milk yield, used in crossbreeding",
+        "milk_yield": "5000-7000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3-3.5% of body weight",
+            "concentrate": "400-450g per liter of milk",
+            "green_fodder": "20-25 kg/day",
+            "water": "60-80 liters/day"
+        },
+        "common_diseases": [
+            "Mastitis",
+            "Ketosis",
+            "Milk Fever",
+            "Foot and Mouth Disease"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+    "Red Sindhi": {
+        "type": "indigenous",
+        "category": "dairy",
+        "origin": "Sindh region (Pakistan) and widely reared in India",
+        "characteristics": "Reddish-brown coat, medium size, good adaptability to tropical climate, high fertility",
+        "milk_yield": "1700-2200 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Mastitis",
+            "Haemorrhagic Septicaemia",
+            "Parasitic infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+ "Sahiwal": {
+            "type": "indigenous",
+            "category": "dairy",
+            "origin": "Punjab/Pakistan",
+            "characteristics": "Reddish dun color, loose skin, well-developed udder",
+            "milk_yield": "2000-3000 kg/lactation",
+            "nutrition": {
+                "dry_matter": "3-3.5% of body weight",
+                "concentrate": "250-350g per liter of milk", 
+                "green_fodder": "20-25 kg/day",
+                "water": "40-60 liters/day"
+            },
+            "common_diseases": [
+                "Mastitis",
+                "Milk fever",
+                "Foot and Mouth Disease"
+            ],
+            "vaccination_schedule": [
+                {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+                {"vaccine": "Mastitis", "frequency": "pre-calving", "season": "as needed"}
+            ]
+        }
+    ,
+
+    "Tharparkar": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Rajasthan",
+        "characteristics": "Medium to large size, white to light grey coat, resistant to heat and drought, hardy breed",
+        "milk_yield": "1500-2500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Mastitis",
+            "Haemorrhagic Septicaemia"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Umblachery": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Tamil Nadu",
+        "characteristics": "Medium size, white coat with grey or black markings, mainly used for ploughing and carting",
+        "milk_yield": "600-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Vechur": {
+        "type": "indigenous",
+        "category": "dairy (dwarf breed)",
+        "origin": "Kerala ",
+        "characteristics": "World’s smallest cattle breed, dwarf size, highly disease-resistant, easy to manage, produces high-fat milk",
+        "milk_yield": "400-600 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "8-10 kg/day",
+            "water": "15-25 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Amritmahal": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Karnataka",
+        "characteristics": "Large, grey to white coat, narrow face, long horns with sharp tips, known for strength and endurance, excellent for draught work",
+        "milk_yield": "600-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter",
+            "Parasitic infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Kenkatha": {
+        "type": "indigenous",
+        "category": "draught",
+        "origin": "Bundelkhand region (Uttar Pradesh & Madhya Pradesh)",
+        "characteristics": "Small to medium size, compact body, dark grey coat with white patches, sturdy and drought-resistant, used for ploughing and carting",
+        "milk_yield": "400-600 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "8-12 kg/day",
+            "water": "20-30 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
+,
+
+    "Malnad Gidda": {
+        "type": "indigenous",
+        "category": "dual_purpose (low milk + draught)",
+        "origin": "Western Ghats of Karnataka",
+        "characteristics": "Small-sized dwarf cattle, black or dark brown coat, disease-resistant, hardy in hilly terrain, requires minimal feed",
+        "milk_yield": "500-700 kg/lactation",
+        "nutrition": {
+            "dry_matter": "1.5-2% of body weight",
+            "concentrate": "150-200g per liter of milk",
+            "green_fodder": "6-10 kg/day",
+            "water": "15-25 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Parasitic infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["Mastitis", "Milk Fever", "Ketosis", "Displaced Abomasum"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "IBR", "frequency": "annual", "season": "winter", "due_in_days": 365}
-    ]
-  },
-  "Murrah Buffalo": {
-    "type": "indigenous", 
-    "category": "dairy", 
-    "origin": "Haryana",
-    "characteristics": "Jet-black, compact body, tightly curved horns, highest milk-producing buffalo breed",
-    "milk_yield": "2000-4000 kg/lactation",
-    "body_weight": "450-800 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "3% of body weight",
-      "concentrate": "400g per liter of milk",
-      "green_fodder": "20-25 kg/day",
-      "dry_fodder": "4-5 kg/day",
-      "water": "60-80 liters/day"
+    "Toda": {
+        "type": "indigenous",
+        "category": "dairy",
+        "origin": "Tamil Nadu",
+        "characteristics": "Unique breed reared by Toda tribes, crescent-shaped horns, long coat, produces milk with high fat content used for traditional butter and ghee",
+        "milk_yield": "500-800 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Parasitic infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["Mastitis", "Foot and Mouth Disease", "Haemorrhagic Septicaemia"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
-    ]
-  },
-  "Sahiwal": {
-    "type": "indigenous", 
-    "category": "dairy", 
-    "origin": "Punjab/Pakistan",
-    "characteristics": "Light red to brown color, drooping ears, heat tolerant, docile nature",
-    "milk_yield": "2000-3000 kg/lactation",
-    "body_weight": "300-500 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "2.8-3.2% of body weight",
-      "concentrate": "350-450g per liter of milk",
-      "green_fodder": "20-25 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "40-60 liters/day"
+    "Banni": {
+        "type": "indigenous",
+        "category": "dairy",
+        "origin": "Gujarat",
+        "characteristics": "Strong, disease-resistant, thrives in arid and harsh conditions, known for high milk yield even in drought",
+        "milk_yield": "2000-3000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-400g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "40-60 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Mastitis"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "Mastitis", "Tick-borne diseases"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "Anthrax", "frequency": "annual", "season": "pre-monsoon", "due_in_days": 365}
-    ]
-  },
-  "Red Sindhi": {
-    "type": "indigenous", 
-    "category": "dairy", 
-    "origin": "Sindh (Pakistan)",
-    "characteristics": "Red coat, compact body, heat resistant, good milk producer",
-    "milk_yield": "1800-2500 kg/lactation",
-    "body_weight": "300-400 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "2.5-3% of body weight",
-      "concentrate": "300-400g per liter of milk",
-      "green_fodder": "18-22 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "35-45 liters/day"
+    "Bhadawari": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Chambal and Yamuna river valley (UP–MP border)",
+        "characteristics": "Copper-colored body with black/white patches, high-fat milk (8–12%), hardy and drought-resistant",
+        "milk_yield": "1200-1500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "12-18 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Internal parasites"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "Mastitis", "Parasitic infections"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180}
-    ]
-  },
-  "Tharparkar": {
-    "type": "indigenous", 
-    "category": "dual_purpose", 
-    "origin": "Rajasthan",
-    "characteristics": "White/light grey color, heat and drought resistant, hardy breed",
-    "milk_yield": "1500-2200 kg/lactation",
-    "body_weight": "350-450 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "2.5-3% of body weight",
-      "concentrate": "250-350g per liter of milk",
-      "green_fodder": "15-20 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "30-40 liters/day"
+    "Jaffrabadi": {
+        "type": "indigenous",
+        "category": "dairy + draught",
+        "origin": "Saurashtra region, Gujarat",
+        "characteristics": "Massive body size, long and thick horns, jet-black coat, very strong and hardy, dual-purpose utility",
+        "milk_yield": "1500-2500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3% of body weight",
+            "concentrate": "300-400g per liter of milk",
+            "green_fodder": "20-25 kg/day",
+            "water": "50-70 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter",
+            "Mastitis"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "HS", "Parasitic infections"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
-    ]
-  },
-  "Kankrej": {
-    "type": "indigenous", 
-    "category": "dual_purpose", 
-    "origin": "Gujarat/Rajasthan",
-    "characteristics": "Silver-grey color, large size, good draught capability, heat tolerant",
-    "milk_yield": "1200-1800 kg/lactation",
-    "body_weight": "400-600 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "2.8-3.2% of body weight",
-      "concentrate": "300-400g per liter of milk",
-      "green_fodder": "20-25 kg/day",
-      "dry_fodder": "4-5 kg/day",
-      "water": "40-60 liters/day"
+    "Mehsana": {
+        "type": "indigenous (Murrah × Surti cross)",
+        "category": "dairy",
+        "origin": "Gujarat",
+        "characteristics": "Medium body, sickle-shaped horns, high milk yield, adaptable and hardy",
+        "milk_yield": "1800-2500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "40-60 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter",
+            "Mastitis"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "HS", "Tick fever"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
-    ]
-  },
-  "Jersey": {
-    "type": "exotic", 
-    "category": "dairy", 
-    "origin": "Channel Islands",
-    "characteristics": "Small size, fawn colored, high butterfat content, efficient feed converter",
-    "milk_yield": "3500-4500 kg/lactation",
-    "body_weight": "350-450 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "3-3.5% of body weight",
-      "concentrate": "400-500g per liter of milk",
-      "green_fodder": "20-25 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "50-70 liters/day"
+    "Murrah": {
+        "type": "indigenous",
+        "category": "dairy",
+        "origin": "Haryana (Rohtak, Hisar districts)",
+        "characteristics": "Jet-black, compact body, tightly curved horns, highest milk-producing buffalo breed",
+        "milk_yield": "2000-4000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3% of body weight",
+            "concentrate": "400g per liter of milk",
+            "green_fodder": "20-25 kg/day",
+            "water": "60-80 liters/day"
+        },
+        "common_diseases": [
+            "Mastitis",
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Milk Fever"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["Mastitis", "Milk Fever", "Ketosis"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180}
-    ]
-  },
-  "Crossbred (Holstein × Local)": {
-    "type": "crossbred", 
-    "category": "dairy", 
-    "origin": "India",
-    "characteristics": "Variable appearance, improved milk yield, moderate heat tolerance",
-    "milk_yield": "3000-5000 kg/lactation",
-    "body_weight": "400-550 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "3-3.2% of body weight",
-      "concentrate": "350-450g per liter of milk",
-      "green_fodder": "22-28 kg/day",
-      "dry_fodder": "4-5 kg/day",
-      "water": "60-80 liters/day"
+    "Nagpuri": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Vidarbha region, Maharashtra",
+        "characteristics": "Medium-sized, greyish-black coat, long sword-shaped horns, thrives in hot and dry climate",
+        "milk_yield": "700-1200 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "250-300g per liter of milk",
+            "green_fodder": "12-15 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["Mastitis", "FMD", "Milk fever"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180}
-    ]
-  },
-  "Surti Buffalo": {
-    "type": "indigenous", 
-    "category": "dairy", 
-    "origin": "Gujarat",
-    "characteristics": "Light brown color, medium size, good milk quality, hardy breed",
-    "milk_yield": "1500-2200 kg/lactation",
-    "body_weight": "350-450 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "2.8-3.2% of body weight",
-      "concentrate": "350-450g per liter of milk",
-      "green_fodder": "20-25 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "50-70 liters/day"
+    "Nili Ravi": {
+        "type": "indigenous",
+        "category": "dairy",
+        "origin": "Punjab region (India-Pakistan border)",
+        "characteristics": "Large body, black coat, white markings on forehead/legs, long and thin walled horns, high milk yield",
+        "milk_yield": "2500-3500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "3% of body weight",
+            "concentrate": "350-400g per liter of milk",
+            "green_fodder": "20-25 kg/day",
+            "water": "60-80 liters/day"
+        },
+        "common_diseases": [
+            "Mastitis",
+            "Foot and Mouth Disease",
+            "Haemorrhagic Septicaemia"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "HS", "Mastitis"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
-    ]
-  },
-  "Nili-Ravi Buffalo": {
-    "type": "indigenous", 
-    "category": "dairy", 
-    "origin": "Punjab",
-    "characteristics": "Large size, black with white markings, excellent milk producer",
-    "milk_yield": "2500-3500 kg/lactation",
-    "body_weight": "500-750 kg",
-    "lactation_period": "305 days",
-    "nutrition": {
-      "dry_matter": "3-3.5% of body weight",
-      "concentrate": "400-500g per liter of milk",
-      "green_fodder": "25-30 kg/day",
-      "dry_fodder": "4-6 kg/day",
-      "water": "70-90 liters/day"
+    "Surti": {
+        "type": "indigenous",
+        "category": "dairy",
+        "origin": "Kaira and Baroda districts, Gujarat",
+        "characteristics": "Medium size, sickle-shaped horns, reddish-brown to black coat, docile temperament, high fat content in milk",
+        "milk_yield": "1000-1500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "40-60 liters/day"
+        },
+        "common_diseases": [
+            "FMD",
+            "Haemorrhagic Septicaemia",
+            "Mastitis"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "HS", "Mastitis"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
-    ]
-  },
-  "Ongole": {
-    "type": "indigenous", 
-    "category": "dual_purpose", 
-    "origin": "Andhra Pradesh",
-    "characteristics": "Large size, white color, heat tolerant, good draught animal",
-    "milk_yield": "800-1200 kg/lactation",
-    "body_weight": "400-650 kg",
-    "lactation_period": "280 days",
-    "nutrition": {
-      "dry_matter": "2.5-3% of body weight",
-      "concentrate": "250-350g per liter of milk",
-      "green_fodder": "20-25 kg/day",
-      "dry_fodder": "4-5 kg/day",
-      "water": "40-60 liters/day"
+    "Pandharpuri": {
+        "type": "indigenous",
+        "category": "dairy",
+        "origin": "Maharashtra",
+        "characteristics": "Long sword-shaped horns, black coat, hardy and well adapted to dry conditions",
+        "milk_yield": "1200-2000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "40-60 liters/day"
+        },
+        "common_diseases": [
+            "FMD",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "HS", "Tick fever"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
-    ]
-  },
-  "Deoni": {
-    "type": "indigenous", 
-    "category": "dual_purpose", 
-    "origin": "Maharashtra/Karnataka",
-    "characteristics": "Medium size, grey-white color, good milk producer, hardy",
-    "milk_yield": "1000-1500 kg/lactation",
-    "body_weight": "300-450 kg",
-    "lactation_period": "300 days",
-    "nutrition": {
-      "dry_matter": "2.5-3% of body weight",
-      "concentrate": "300-400g per liter of milk",
-      "green_fodder": "18-22 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "35-50 liters/day"
+    "Chilika": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Chilika Lake region, Odisha",
+        "characteristics": "Medium-sized, greyish coat, thrives in marshy and coastal areas, tolerant to poor-quality feed",
+        "milk_yield": "800-1200 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "250-300g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "FMD",
+            "Haemorrhagic Septicaemia",
+            "Parasite infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "HS", "Mastitis"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180}
-    ]
-  },
-  "Rathi": {
-    "type": "indigenous", 
-    "category": "dual_purpose", 
-    "origin": "Rajasthan",
-    "characteristics": "Brown color with white patches, heat tolerant, good milk producer",
-    "milk_yield": "1200-1800 kg/lactation",
-    "body_weight": "300-400 kg",
-    "lactation_period": "300 days",
-    "nutrition": {
-      "dry_matter": "2.5-3% of body weight",
-      "concentrate": "300-400g per liter of milk",
-      "green_fodder": "16-20 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "30-45 liters/day"
+    "Godavari": {
+        "type": "indigenous (improved breed)",
+        "category": "dairy",
+        "origin": "Andhra Pradesh (developed at livestock research stations)",
+        "characteristics": "Crossbred strain developed for higher milk production, compact body, black coat",
+        "milk_yield": "1500-2000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300-350g per liter of milk",
+            "green_fodder": "15-20 kg/day",
+            "water": "40-60 liters/day"
+        },
+        "common_diseases": [
+            "FMD",
+            "Haemorrhagic Septicaemia",
+            "Mastitis"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "HS", "Parasitic infections"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
-    ]
-  },
-  "Hariana": {
-    "type": "indigenous", 
-    "category": "dual_purpose", 
-    "origin": "Haryana",
-    "characteristics": "Grey-white color, medium to large size, good draught capability",
-    "milk_yield": "1000-1500 kg/lactation",
-    "body_weight": "350-500 kg",
-    "lactation_period": "300 days",
-    "nutrition": {
-      "dry_matter": "2.5-3% of body weight",
-      "concentrate": "300-400g per liter of milk",
-      "green_fodder": "18-22 kg/day",
-      "dry_fodder": "3-4 kg/day",
-      "water": "35-50 liters/day"
+    "Parlakhemundi": {
+        "type": "indigenous",
+        "category": "draught + dairy",
+        "origin": "Gajapati & Ganjam districts, Odisha",
+        "characteristics": "Medium-sized, black coat, mainly used for draught power, moderate milk yield",
+        "milk_yield": "600-1000 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2% of body weight",
+            "concentrate": "200-250g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "25-40 liters/day"
+        },
+        "common_diseases": [
+            "FMD",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
     },
-    "common_diseases": ["FMD", "HS", "Tick fever"],
-    "vaccination_schedule": [
-      {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon", "due_in_days": 180},
-      {"vaccine": "HS", "frequency": "annual", "season": "before monsoon", "due_in_days": 365}
-    ]
-  }
+    "Tarai": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Tarai region (Uttarakhand–UP border)",
+        "characteristics": "Medium size, black coat, thrives in humid and marshy areas, used for draught and milk",
+        "milk_yield": "800-1200 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "250-300g per liter of milk",
+            "green_fodder": "12-15 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "FMD",
+            "Haemorrhagic Septicaemia",
+            "Parasite infestations"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    },
+    "Sambalpuri": {
+        "type": "indigenous",
+        "category": "draught + dairy",
+        "origin": "Sambalpur district, Odisha",
+        "characteristics": "Medium body, black coat, strong draught power, moderate milk production",
+        "milk_yield": "700-1100 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2-2.5% of body weight",
+            "concentrate": "250-300g per liter of milk",
+            "green_fodder": "10-15 kg/day",
+            "water": "30-45 liters/day"
+        },
+        "common_diseases": [
+            "FMD",
+            "Haemorrhagic Septicaemia",
+            "Black Quarter"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    },
+    "Gojri": {
+        "type": "indigenous",
+        "category": "dual_purpose",
+        "origin": "Himalayan foothills (Jammu & Kashmir, Himachal Pradesh)",
+        "characteristics": "Black coat, medium body, well adapted to cold conditions, milk has high fat content",
+        "milk_yield": "1000-1500 kg/lactation",
+        "nutrition": {
+            "dry_matter": "2.5-3% of body weight",
+            "concentrate": "300g per liter of milk",
+            "green_fodder": "12-18 kg/day",
+            "water": "30-50 liters/day"
+        },
+        "common_diseases": [
+            "FMD",
+            "Haemorrhagic Septicaemia",
+            "Mastitis"
+        ],
+        "vaccination_schedule": [
+            {"vaccine": "FMD", "frequency": "6 months", "season": "pre-monsoon"},
+            {"vaccine": "HS", "frequency": "annual", "season": "before monsoon"},
+            {"vaccine": "BQ", "frequency": "annual", "season": "before monsoon"}
+        ]
+    }
 }

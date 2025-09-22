@@ -12,7 +12,6 @@ import traceback
 from datetime import datetime, timedelta
 from PIL import Image
 import plotly.graph_objects as go
-import matplotlib.pyplot as plt
 from io import BytesIO
 import re
 
@@ -453,80 +452,27 @@ def predict_breed_demo(image, breed_classes):
     return breed, conf, probs
 
 def get_breed_metadata(breed, breed_info):
-    """Get comprehensive breed metadata with all detailed information"""
+    """Get comprehensive breed metadata with clean, simple formatting"""
     meta = breed_info.get(breed, {})
     
-    # Extract all key information with proper formatting
+    # Extract basic information with clean formatting
     origin = meta.get("origin", "Origin not specified")
     category = meta.get("category", "Category not specified").replace("_", " ").title()
     breed_type = meta.get("type", "Type not specified").title()
     characteristics = meta.get("characteristics", "Characteristics not available")
     milk_yield = meta.get("milk_yield", "Milk yield data not available")
     
-    # Body weight formatting
-    body_weight = meta.get("body_weight", {})
+    # Body weight formatting - simple text
+    body_weight = meta.get("body_weight", "Body weight data not available")
     if isinstance(body_weight, dict):
         if "male" in body_weight and "female" in body_weight:
-            body_weight_str = f"**Male**: {body_weight['male']}, **Female**: {body_weight['female']}"
+            body_weight_str = f"Male: {body_weight['male']}, Female: {body_weight['female']}"
         else:
             body_weight_str = "Body weight data not available"
     elif isinstance(body_weight, str):
-        body_weight_str = f"**Average**: {body_weight}"
+        body_weight_str = f"Average: {body_weight}"
     else:
         body_weight_str = "Body weight data not available"
-    
-    # Detailed nutrition formatting
-    nutrition = meta.get("nutrition", {})
-    if isinstance(nutrition, dict):
-        nutrition_parts = []
-        
-        # Map nutrition fields to user-friendly names
-        nutrition_map = {
-            "dry_matter": "🌾 **Dry Matter**",
-            "concentrate": "🥗 **Concentrate Feed**", 
-            "green_fodder": "🌿 **Green Fodder**",
-            "dry_fodder": "🌾 **Dry Fodder**",
-            "water": "💧 **Water Requirement**"
-        }
-        
-        for key, value in nutrition.items():
-            display_name = nutrition_map.get(key, f"**{key.replace('_', ' ').title()}**")
-            nutrition_parts.append(f"{display_name}: {value}")
-        
-        nutrition_str = "\n".join(nutrition_parts) if nutrition_parts else "Nutrition guidelines not available"
-    else:
-        nutrition_str = str(nutrition) if nutrition else "Nutrition guidelines not available"
-    
-    # Format diseases with emojis
-    diseases = meta.get("common_diseases", [])
-    if diseases:
-        disease_items = [f"• {disease}" for disease in diseases]
-        disease_str = "🏥 **Common Diseases**:\n" + "\n".join(disease_items)
-    else:
-        disease_str = "🏥 **Common Diseases**: No specific disease information available"
-    
-    # Format vaccination schedule
-    vaccination_schedule = meta.get("vaccination_schedule", [])
-    if vaccination_schedule:
-        vacc_parts = []
-        for vacc in vaccination_schedule:
-            vaccine_name = vacc.get("vaccine", "Unknown")
-            frequency = vacc.get("frequency", "Not specified")
-            vacc_parts.append(f"• **{vaccine_name}**: {frequency}")
-        vaccination_str = "💉 **Vaccination Schedule**:\n" + "\n".join(vacc_parts)
-    else:
-        vaccination_str = "💉 **Vaccination Schedule**: No vaccination schedule available"
-    
-    # Breeding information
-    breeding_info = meta.get("breeding_info", {})
-    if breeding_info:
-        breeding_parts = []
-        for key, value in breeding_info.items():
-            display_name = key.replace("_", " ").title()
-            breeding_parts.append(f"**{display_name}**: {value}")
-        breeding_str = "🐄 **Breeding Information**:\n" + "\n".join(breeding_parts)
-    else:
-        breeding_str = "🐄 **Breeding Information**: Not available"
     
     return {
         "origin": origin,
@@ -535,10 +481,7 @@ def get_breed_metadata(breed, breed_info):
         "characteristics": characteristics,
         "milk_yield": milk_yield,
         "body_weight": body_weight_str,
-        "nutrition": nutrition_str,
-        "diseases": disease_str,
-        "vaccination": vaccination_str,
-        "breeding": breeding_str
+        "raw_data": meta  # Include raw data for tabs
     }
 
 def setup_database():
@@ -669,34 +612,28 @@ with col2:
                 confidence_pct = conf * 100
                 metadata = get_breed_metadata(breed, breed_info)
                 
-                # Results display with comprehensive information
-                st.markdown(f"""
-                <div class="result-card">
-                    <h2 style="color: #208793; margin-top: 0;">🎯 {breed}</h2>
-                    <h4 style="color: #666;">Confidence: {confidence_pct:.1f}%</h4>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
-                        <div>
-                            <p><strong>🌍 Origin:</strong> {metadata['origin']}</p>
-                            <p><strong>📂 Category:</strong> {metadata['category']}</p>
-                        </div>
-                        <div>
-                            <p><strong>🏷️ Type:</strong> {metadata['type']}</p>
-                            <p><strong>🥛 Milk Yield:</strong> {metadata['milk_yield']}</p>
-                        </div>
-                    </div>
-                    
-                    <div style="margin: 1rem 0;">
-                        <p><strong>⚖️ Body Weight:</strong></p>
-                        <p style="margin-left: 1rem; color: #555;">{metadata['body_weight']}</p>
-                    </div>
-                    
-                    <div style="margin: 1rem 0;">
-                        <p><strong>🔍 Characteristics:</strong></p>
-                        <p style="margin-left: 1rem; color: #555;">{metadata['characteristics']}</p>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                # Results display with clean information layout
+                st.success(f"🎯 **Predicted Breed:** {breed}")
+                st.info(f"🎯 **Confidence:** {confidence_pct:.1f}%")
+                
+                # Basic information in columns
+                col_info1, col_info2 = st.columns(2)
+                
+                with col_info1:
+                    st.metric("🌍 Origin", metadata['origin'])
+                    st.metric("📂 Category", metadata['category'])
+                
+                with col_info2:
+                    st.metric("🏷️ Type", metadata['type'])
+                    st.metric("🥛 Milk Yield", metadata['milk_yield'])
+                
+                # Body weight information
+                st.subheader("⚖️ Body Weight")
+                st.write(metadata['body_weight'])
+                
+                # Characteristics
+                st.subheader("🔍 Characteristics")
+                st.write(metadata['characteristics'])
                 
                 # Confidence gauge
                 fig = go.Figure(go.Indicator(
@@ -725,20 +662,52 @@ with col2:
                 tab1, tab2, tab3, tab4, tab5 = st.tabs(["🥗 Nutrition", "🏥 Health", "💉 Vaccination", "� Breeding", "�📊 Analysis"])
                 
                 with tab1:
-                    st.markdown("### 🌾 Complete Nutrition Guide")
-                    st.markdown(metadata['nutrition'])
+                    st.subheader("🌾 Nutrition Requirements")
+                    raw_data = metadata.get('raw_data', {})
+                    nutrition = raw_data.get('nutrition', {})
+                    if nutrition:
+                        st.write("**Daily Requirements:**")
+                        for key, value in nutrition.items():
+                            clean_key = key.replace('_', ' ').title()
+                            st.write(f"• **{clean_key}:** {value}")
+                    else:
+                        st.info("Complete nutrition data will be shown here.")
                     
                 with tab2:
-                    st.markdown("### 🏥 Health Information")
-                    st.markdown(metadata['diseases'])
+                    st.subheader("🏥 Health & Disease Management")
+                    raw_data = metadata.get('raw_data', {})
+                    diseases = raw_data.get('common_diseases', [])
+                    if diseases:
+                        st.write("**Common Diseases & Prevention:**")
+                        for disease in diseases:
+                            st.write(f"• {disease}")
+                    else:
+                        st.info("Disease information will be shown here.")
                     
                 with tab3:
-                    st.markdown("### 💉 Vaccination Schedule")
-                    st.markdown(metadata['vaccination'])
+                    st.subheader("💉 Vaccination Schedule")
+                    raw_data = metadata.get('raw_data', {})
+                    vaccines = raw_data.get('vaccination_schedule', [])
+                    if vaccines:
+                        st.write("**Recommended Vaccinations:**")
+                        for vaccine in vaccines:
+                            vaccine_name = vaccine.get('vaccine', 'Unknown')
+                            frequency = vaccine.get('frequency', 'Not specified')
+                            st.write(f"• **{vaccine_name}:** {frequency}")
+                    else:
+                        st.info("Vaccination schedule will be shown here.")
                     
                 with tab4:
-                    st.markdown("### 🐄 Breeding Details")
-                    st.markdown(metadata['breeding'])
+                    st.subheader("🐄 Breeding Information")
+                    raw_data = metadata.get('raw_data', {})
+                    breeding = raw_data.get('breeding_info', {})
+                    if breeding:
+                        st.write("**Breeding Parameters:**")
+                        for key, value in breeding.items():
+                            clean_key = key.replace('_', ' ').title()
+                            st.write(f"• **{clean_key}:** {value}")
+                    else:
+                        st.info("Breeding information will be shown here.")
                     
                 with tab5:
                     st.markdown("### 📊 Prediction Analysis")

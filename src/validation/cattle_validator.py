@@ -271,7 +271,7 @@ def _fallback_validation(image):
         elif aspect_ratio > 4.0:
             return False, 0.2, "Aspect ratio too extreme for cattle"
         
-        # Basic color analysis for skin tone detection
+        # Enhanced color analysis - prioritize cattle colors over skin detection
         try:
             rgb_array = np.array(image)
             if len(rgb_array.shape) == 3:
@@ -279,11 +279,38 @@ def _fallback_validation(image):
                 g_channel = rgb_array[:,:,1]
                 b_channel = rgb_array[:,:,2]
                 
-                skin_mask = (r_channel > g_channel) & (g_channel > b_channel) & (r_channel > 95) & (g_channel > 40) & (b_channel > 20)
-                skin_ratio = np.sum(skin_mask) / (width * height)
+                # First check for cattle colors (browns, blacks, whites)
+                # Brown cattle colors: various browns that are NOT human skin
+                brown_mask = (
+                    # Dark browns (low brightness, high red dominance)
+                    ((r_channel > g_channel) & (g_channel > b_channel) & (r_channel < 180) & (g_channel < 120)) |
+                    # Light browns/tans (balanced but not too bright)
+                    ((r_channel > 120) & (g_channel > 80) & (b_channel > 40) & (r_channel < 220) & (g_channel < 200)) |
+                    # Reddish browns (more red than green, low blue)
+                    ((r_channel > g_channel + 20) & (b_channel < g_channel) & (r_channel > 100))
+                )
                 
-                if skin_ratio > 0.15:
-                    return False, 0.0, "Possible human skin tones detected"
+                # Black/dark colors (common in cattle)
+                black_mask = (r_channel < 80) & (g_channel < 80) & (b_channel < 80)
+                
+                # White/light colors (cattle markings)
+                white_mask = (r_channel > 200) & (g_channel > 200) & (b_channel > 200)
+                
+                cattle_color_ratio = (np.sum(brown_mask) + np.sum(black_mask) + np.sum(white_mask)) / (width * height)
+                
+                # Only check for human skin if we don't have strong cattle colors
+                if cattle_color_ratio < 0.3:
+                    # Much more restrictive human skin detection - only obvious pinkish skin
+                    skin_mask = (
+                        (r_channel > g_channel + 15) & (g_channel > b_channel + 15) & 
+                        (r_channel > 160) & (g_channel > 80) & (g_channel < 140) & (b_channel > 60) & (b_channel < 120) &
+                        (r_channel - g_channel > 20) & (g_channel - b_channel > 10)  # More pinkish, less brown
+                    )
+                    skin_ratio = np.sum(skin_mask) / (width * height)
+                    
+                    # Much higher threshold - only reject very obvious human skin
+                    if skin_ratio > 0.4:  # Increased from 0.15 to 0.4
+                        return False, 0.0, f"Clear human skin tones detected ({skin_ratio:.2%})"
         except:
             pass
         

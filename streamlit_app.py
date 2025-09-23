@@ -463,23 +463,123 @@ def load_custom_css():
         100% { transform: translateX(0); }
     }
 
-    /* Mobile responsiveness */
+    /* Mobile responsiveness with enhanced text visibility */
     @media (max-width: 768px) {
-        .hero-header h1 {
-            font-size: 2rem !important;
+        /* Enhanced text contrast for mobile */
+        .stApp {
+            background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%) !important;
         }
         
+        /* Dark, bold text for better mobile visibility */
+        h1, h2, h3, h4, h5, h6 {
+            color: #1A1A1A !important;
+            font-weight: 800 !important;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8) !important;
+        }
+        
+        /* Enhanced paragraph and body text */
+        p, div, span, label {
+            color: #2C2C2C !important;
+            font-weight: 600 !important;
+            text-shadow: 0.5px 0.5px 1px rgba(255,255,255,0.8) !important;
+        }
+        
+        /* Stronger contrast for metrics and important text */
+        .stMetric label {
+            color: #0D4A0D !important;
+            font-weight: 800 !important;
+            font-size: 1.1rem !important;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.9) !important;
+        }
+        
+        .stMetric > div > div {
+            color: #1A1A1A !important;
+            font-size: 2rem !important;
+            font-weight: 900 !important;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.8) !important;
+        }
+        
+        /* Enhanced button text visibility */
         .stButton > button {
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%) !important;
+            color: #FFFFFF !important;
+            font-weight: 800 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+            border: 2px solid #1B5E20 !important;
             padding: 0.5rem 1rem !important;
             font-size: 1rem !important;
         }
         
+        /* Enhanced tab text */
+        .stTabs [data-baseweb="tab"] {
+            color: #1A1A1A !important;
+            font-weight: 800 !important;
+            text-shadow: 0.5px 0.5px 1px rgba(255,255,255,0.8) !important;
+        }
+        
+        .stTabs [aria-selected="true"] {
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%) !important;
+            color: #FFFFFF !important;
+            font-weight: 800 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+        }
+        
+        /* Enhanced form text */
+        .stTextInput label, .stSelectbox label, .stTextArea label {
+            color: #1A1A1A !important;
+            font-weight: 700 !important;
+            text-shadow: 0.5px 0.5px 1px rgba(255,255,255,0.8) !important;
+        }
+        
+        /* Enhanced success/error message text */
+        .stSuccess, .stError, .stInfo, .stWarning {
+            font-weight: 700 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6) !important;
+        }
+        
+        /* Enhanced sidebar text for mobile */
+        .css-1d391kg * {
+            color: #FFFFFF !important;
+            font-weight: 700 !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+        }
+        
+        /* Enhanced markdown text */
+        .stMarkdown {
+            color: #1A1A1A !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Enhanced file uploader text */
+        .stFileUploader label {
+            color: #1A1A1A !important;
+            font-weight: 700 !important;
+            text-shadow: 0.5px 0.5px 1px rgba(255,255,255,0.8) !important;
+        }
+        
+        .hero-header h1 {
+            font-size: 2rem !important;
+            color: #FFFFFF !important;
+            font-weight: 900 !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9) !important;
+        }
+        
+        .hero-header h3, .hero-header p {
+            color: #FFFFFF !important;
+            font-weight: 700 !important;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8) !important;
+        }
+        
         .stFileUploader > div {
             padding: 1.5rem !important;
+            background: #FFFFFF !important;
+            border: 3px solid #2E7D32 !important;
         }
         
         .stMetric {
             margin-bottom: 0.5rem !important;
+            background: #FFFFFF !important;
+            border: 2px solid #2E7D32 !important;
         }
         
         .main .block-container {

@@ -5,6 +5,7 @@ Handles both real ML model and demo mode predictions
 
 import numpy as np
 import streamlit as st
+import os
 from src.validation.cattle_validator import validate_cattle_image
 
 
@@ -59,7 +60,7 @@ def predict_breed_demo(image, breed_classes):
 
 
 def load_ml_model():
-    """Load the ML model if available"""
+    """Load the ML model with robust error handling"""
     try:
         import torch
         import torch.nn as nn
@@ -68,23 +69,45 @@ def load_ml_model():
         checkpoint_path = "best_breed_classifier.pth"
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
+        # Check if checkpoint exists
+        if not os.path.exists(checkpoint_path):
+            return None, None, device
+        
         try:
+            # Load checkpoint
             checkpoint = torch.load(checkpoint_path, map_location=device)
             breed_classes = checkpoint.get("breed_classes")
             
             if breed_classes is None:
                 return None, None, device
             
-            model = EfficientNet.from_pretrained("efficientnet-b3")
-            model._fc = nn.Linear(model._fc.in_features, len(breed_classes))
+            # Load EfficientNet model with robust error handling
+            try:
+                # Method 1: efficientnet-pytorch library (preferred)
+                model = EfficientNet.from_pretrained("efficientnet-b3")
+                model._fc = nn.Linear(model._fc.in_features, len(breed_classes))
+                
+            except Exception as e:
+                # Method 2: torchvision fallback
+                try:
+                    import torchvision.models as models
+                    from torchvision.models import EfficientNet_B3_Weights
+                    
+                    model = models.efficientnet_b3(weights=EfficientNet_B3_Weights.IMAGENET1K_V1)
+                    model.classifier[-1] = nn.Linear(model.classifier[-1].in_features, len(breed_classes))
+                    
+                except Exception as e2:
+                    # Method 3: Create without pretrained weights
+                    model = EfficientNet.from_name("efficientnet-b3", num_classes=len(breed_classes))
+            
+            # Load trained weights
             model.load_state_dict(checkpoint["model_state_dict"])
             model = model.to(device)
             model.eval()
             
-            # Success! Return model components
             return model, breed_classes, device
             
-        except FileNotFoundError:
+        except Exception as e:
             return None, None, device
             
     except ImportError:

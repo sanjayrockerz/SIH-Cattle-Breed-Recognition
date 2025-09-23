@@ -122,8 +122,8 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# TTS button for main description (modular, non-intrusive)
-tts_read_aloud(t["page_description"], key="main_desc_tts")
+# TTS button for main description (modular, non-intrusive, supports multilingual)
+tts_read_aloud(t["page_description"], key="main_desc_tts", language=language)
 
 # Model status indicator
 model_status = t["ai_model_loaded"] if model_available else t["ai_model_demo"]

@@ -10,29 +10,30 @@ Maintainers:
 - This utility does NOT affect ML model or prediction workflow.
 - Audio file is deleted after playback to prevent clutter.
 """
-import os
-from gtts import gTTS
 import streamlit as st
-import tempfile
+from gtts import gTTS
+from io import BytesIO
 
-def tts_read_aloud(text: str, key: str = "tts"):
+LANG_MAP = {
+    "English": "en",
+    "हिंदी (Hindi)": "hi",
+    "தமிழ் (Tamil)": "ta",
+    "తెలుగు (Telugu)": "te",
+    "ಕನ್ನಡ (Kannada)": "kn",
+}
+
+def tts_read_aloud(text: str, key: str = "tts", language: str = "English"):
     """
     Streamlit button to read aloud any text using Google TTS.
     Args:
-        text (str): Text to read aloud (English only)
+        text (str): Text to read aloud
         key (str): Unique key for Streamlit widget
+        language (str): Language for TTS (English, Hindi, Tamil, Telugu, Kannada)
     """
     if st.button("🔊 Read aloud", key=key):
-        # Generate temporary mp3 file
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
-            tts = gTTS(text)
-            tmp_file_path = tmp_file.name
-            tts.save(tmp_file_path)
-        # Play audio in Streamlit
-        with open(tmp_file_path, "rb") as audio_file:
-            st.audio(audio_file.read(), format="audio/mp3")
-        # Delete file after playback
-        try:
-            os.remove(tmp_file_path)
-        except Exception:
-            pass
+        lang_code = LANG_MAP.get(language, "en")
+        tts = gTTS(text, lang=lang_code)
+        mp3_fp = BytesIO()
+        tts.write_to_fp(mp3_fp)
+        mp3_fp.seek(0)
+        st.audio(mp3_fp.read(), format="audio/mp3")

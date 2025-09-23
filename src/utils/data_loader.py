@@ -147,39 +147,55 @@ def get_breed_metadata(breed, breed_info):
     """Get comprehensive metadata for a breed"""
     data = breed_info.get(breed, {})
     
-    # Format nutrition information
+    # Format nutrition information with enhanced structure
     nutrition_info = data.get("nutrition", {})
-    nutrition_text = "**🌾 Nutrition Requirements:**\n"
+    nutrition_text = "<strong>🌾 Nutrition Requirements:</strong><br/><br/>"
+    
+    # Standard formatting for nutrition requirements
+    nutrition_items = {
+        "dry_matter": "Dry Matter",
+        "concentrate": "Concentrate", 
+        "green_fodder": "Green Fodder",
+        "water": "Water"
+    }
+    
+    for key, display_name in nutrition_items.items():
+        if key in nutrition_info:
+            value = nutrition_info[key]
+            nutrition_text += f"▪️ <strong>{display_name}:</strong> {value}<br/>"
+    
+    # Add any additional nutrition items not in standard list
     for key, value in nutrition_info.items():
-        key_formatted = key.replace("_", " ").title()
-        nutrition_text += f"• **{key_formatted}:** {value}\n"
+        if key not in nutrition_items:
+            key_formatted = key.replace("_", " ").title()
+            nutrition_text += f"▪️ <strong>{key_formatted}:</strong> {value}<br/>"
     
-    # Format diseases
+    # Format diseases with enhanced structure
     diseases = data.get("common_diseases", [])
-    diseases_text = "**🏥 Common Diseases:**\n"
+    diseases_text = "<strong>🏥 Common Diseases:</strong><br/><br/>"
     for disease in diseases:
-        diseases_text += f"• {disease}\n"
+        diseases_text += f"▪️ {disease}<br/>"
     
-    # Format vaccination schedule
+    # Format vaccination schedule with enhanced structure
     vaccines = data.get("vaccination_schedule", [])
-    vaccination_text = "**💉 Vaccination Schedule:**\n"
+    vaccination_text = "<strong>💉 Vaccination Schedule:</strong><br/><br/>"
     for vaccine in vaccines:
         vaccine_name = vaccine.get("vaccine", "Unknown")
         frequency = vaccine.get("frequency", "As needed")
-        vaccination_text += f"• **{vaccine_name}:** {frequency}\n"
+        vaccination_text += f"▪️ <strong>{vaccine_name}:</strong> {frequency}<br/>"
     
-    # Body weight information (placeholder)
-    body_weight_text = "**⚖️ Body Weight Information:**\n"
+    # Body weight information with enhanced structure
+    body_weight_text = "<strong>⚖️ Body Weight Information:</strong><br/><br/>"
     if data.get("type") == "indigenous":
-        body_weight_text += "• **Adult Male:** 400-500 kg\n• **Adult Female:** 300-400 kg\n"
+        body_weight_text += "▪️ <strong>Adult Male:</strong> 400-500 kg<br/>▪️ <strong>Adult Female:</strong> 300-400 kg<br/>"
     else:
-        body_weight_text += "• **Adult Male:** 600-800 kg\n• **Adult Female:** 500-700 kg\n"
+        body_weight_text += "▪️ <strong>Adult Male:</strong> 600-800 kg<br/>▪️ <strong>Adult Female:</strong> 500-700 kg<br/>"
     
-    # Breeding information (placeholder)
-    breeding_text = "**🐄 Breeding Information:**\n"
-    breeding_text += "• **Age at First Calving:** 30-36 months\n"
-    breeding_text += "• **Calving Interval:** 12-14 months\n"
-    breeding_text += "• **Breeding Season:** Year-round\n"
+    # Breeding information with enhanced structure
+    breeding_text = "<strong>🐄 Breeding Information:</strong><br/><br/>"
+    breeding_text += "▪️ <strong>Age at First Calving:</strong> 30-36 months<br/>"
+    breeding_text += "▪️ <strong>Calving Interval:</strong> 12-14 months<br/>"
+    breeding_text += "▪️ <strong>Breeding Season:</strong> Year-round<br/>"
     
     return {
         "origin": data.get("origin", "Unknown"),

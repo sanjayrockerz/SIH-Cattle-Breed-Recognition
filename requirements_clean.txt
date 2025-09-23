@@ -1,0 +1,23 @@
+# Core dependencies for the SIH 2025 Cattle Breed Recognition System
+
+# Web framework
+streamlit>=1.28.0
+
+# Image processing and ML
+pillow>=9.0.0
+numpy>=1.21.0
+opencv-python>=4.5.0
+
+# Data science and visualization
+pandas>=1.3.0
+plotly>=5.0.0
+matplotlib>=3.5.0
+
+# Database
+# sqlite3 is included with Python
+
+# Optional ML dependencies (for production model)
+# Uncomment if using the actual ML model:
+# torch>=1.9.0
+# torchvision>=0.10.0
+# efficientnet-pytorch>=0.7.0

@@ -1,0 +1,1 @@
+# Validation module for cattle image validation

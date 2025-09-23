@@ -35,13 +35,16 @@ st.set_page_config(
     }
 )
 
-# Check ML availability
+# Check ML availability - move warning to later in the app
 try:
     import torch
+    import torchvision
+    from efficientnet_pytorch import EfficientNet
     ML_AVAILABLE = True
-except ImportError:
+    ML_ERROR = None
+except ImportError as e:
     ML_AVAILABLE = False
-    st.warning("⚠️ ML libraries not available. Running in demo mode.")
+    ML_ERROR = str(e)
 
 # Initialize components
 @st.cache_data
@@ -60,9 +63,19 @@ if ML_AVAILABLE:
     model, breed_classes, device = load_ml_model()
     transform_func = get_image_transform()
     model_available = model is not None
+    
+    # Show appropriate status message
+    if model_available:
+        st.success(f"✅ **AI Model Ready**: EfficientNet-B3 loaded with {len(breed_classes)} breed classes")
+    else:
+        if os.path.exists("best_breed_classifier.pth"):
+            st.warning("⚠️ **Model file found but couldn't load**. Running in demo mode.")
+        else:
+            st.info("📋 **Model file not found**. Running in demo mode with simulated predictions.")
 else:
     model, breed_classes, device, transform_func = None, None, "cpu", None
     model_available = False
+    st.warning(f"⚠️ **ML libraries not available**: {ML_ERROR}. Running in demo mode.")
 
 # Use breed_info keys as fallback classes
 if breed_classes is None:

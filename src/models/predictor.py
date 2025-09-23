@@ -73,7 +73,6 @@ def load_ml_model():
             breed_classes = checkpoint.get("breed_classes")
             
             if breed_classes is None:
-                st.warning("⚠️ Model checkpoint missing breed classes. Using demo mode.")
                 return None, None, device
             
             model = EfficientNet.from_pretrained("efficientnet-b3")
@@ -82,14 +81,13 @@ def load_ml_model():
             model = model.to(device)
             model.eval()
             
+            # Success! Return model components
             return model, breed_classes, device
             
         except FileNotFoundError:
-            st.info("📋 Model checkpoint not found. Running in demo mode.")
             return None, None, device
             
     except ImportError:
-        st.warning("⚠️ ML libraries not available. Running in demo mode.")
         return None, None, "cpu"
 
 

@@ -5,3 +5,7 @@ pandas
 plotly
 matplotlib
 opencv-python
+
+torch
+torchvision
+efficientnet-pytorch

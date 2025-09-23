@@ -10,3 +10,5 @@ torch
 torchvision
 efficientnet-pytorch
 
+gtts
+

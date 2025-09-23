@@ -11,4 +11,5 @@ torchvision
 efficientnet-pytorch
 
 gtts
+googletrans==4.0.0rc1
 

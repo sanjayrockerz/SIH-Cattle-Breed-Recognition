@@ -13,7 +13,10 @@ from PIL import Image
 import plotly.graph_objects as go
 
 # Import TTS utility (modular, non-intrusive)
+
+# Import TTS and translation utilities (modular, non-intrusive)
 from src.utils.tts import tts_read_aloud
+from src.utils.translate import translate_text, LANG_MAP
 
 # Add src to path for imports
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -290,13 +293,23 @@ def display_prediction_results(breed, conf, probs, filename, image):
         st.metric("🥛 Average Milk Yield", metadata['milk_yield'])
     
     # Characteristics section
+
     st.markdown("### 🔍 Physical Characteristics")
+    # Translate breed description to selected language
+    lang_code = LANG_MAP.get(language, "en")
+    breed_desc = metadata["characteristics"]
+    if lang_code != "en":
+        breed_desc_translated = translate_text(breed_desc, dest_lang=lang_code)
+    else:
+        breed_desc_translated = breed_desc
     st.markdown(f'''
     <div style="background: linear-gradient(135deg, #8D6E63 0%, #42A5F5 100%); 
                 padding: 1rem; border-radius: 10px; color: white; margin: 0.5rem 0;">
-        {metadata["characteristics"]}
+        {breed_desc_translated}
     </div>
     ''', unsafe_allow_html=True)
+    # TTS button for translated breed description
+    tts_read_aloud(breed_desc_translated, key=f"tts_breed_{breed}", language=language)
     
     # Confidence gauge
     display_confidence_gauge(confidence_pct)

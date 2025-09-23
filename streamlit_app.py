@@ -12,6 +12,9 @@ from datetime import datetime
 from PIL import Image
 import plotly.graph_objects as go
 
+# Import TTS utility (modular, non-intrusive)
+from src.utils.tts import tts_read_aloud
+
 # Add src to path for imports
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
@@ -118,6 +121,9 @@ st.markdown(f"""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
+# TTS button for main description (modular, non-intrusive)
+tts_read_aloud(t["page_description"], key="main_desc_tts")
 
 # Model status indicator
 model_status = t["ai_model_loaded"] if model_available else t["ai_model_demo"]

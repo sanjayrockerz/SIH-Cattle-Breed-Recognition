@@ -563,7 +563,7 @@ def get_image_transform():
 
 def validate_cattle_image(image):
     """
-    Validate if the uploaded image contains cattle/buffalo using multiple detection methods
+    Enhanced validation to identify cattle/buffalo and reject other animals (dogs, humans, etc.)
     Returns: (is_cattle: bool, confidence: float, reason: str)
     """
     try:
@@ -573,136 +573,273 @@ def validate_cattle_image(image):
         
         # Convert PIL image to OpenCV format
         opencv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-        
-        # Method 1: Basic image analysis for cattle characteristics
         gray = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2GRAY)
-        
-        # Check image quality and content
         height, width = gray.shape
         
-        # Image quality checks
+        # Quality checks
         if width < 100 or height < 100:
-            return False, 0.0, "Image resolution too low for cattle detection"
+            return False, 0.0, "Image resolution too low for analysis"
         
-        # Calculate image statistics
         mean_brightness = np.mean(gray)
         if mean_brightness < 10 or mean_brightness > 250:
             return False, 0.0, "Image too dark or overexposed"
         
-        # Check for reasonable contrast (cattle have varied textures)
         contrast = np.std(gray)
         if contrast < 15:
-            return False, 0.1, "Image lacks sufficient detail for cattle analysis"
+            return False, 0.1, "Image lacks sufficient detail"
         
-        # Method 2: Edge detection for animal-like shapes
+        # Initialize scoring
+        confidence_score = 0.0
+        reasons = []
+        rejection_reasons = []
+        
+        # METHOD 1: Shape and Size Analysis
+        # Detect contours for shape analysis
         edges = cv2.Canny(gray, 50, 150)
-        edge_density = np.sum(edges > 0) / (width * height)
+        contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         
-        # Method 3: Color analysis for typical cattle colors
+        if contours:
+            # Find largest contour (likely main subject)
+            largest_contour = max(contours, key=cv2.contourArea)
+            contour_area = cv2.contourArea(largest_contour)
+            contour_perimeter = cv2.arcLength(largest_contour, True)
+            
+            # Calculate shape metrics
+            if contour_perimeter > 0:
+                compactness = 4 * np.pi * contour_area / (contour_perimeter ** 2)
+                
+                # Cattle shapes are more compact and less elongated than humans
+                if 0.1 <= compactness <= 0.7:
+                    confidence_score += 0.2
+                    reasons.append("Appropriate body compactness")
+                elif compactness > 0.8:  # Too circular (might be human head/torso)
+                    rejection_reasons.append("Shape too circular for cattle")
+        
+        # METHOD 2: Enhanced Color Analysis - Reject human skin tones
         hsv = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2HSV)
         
-        # Check for cattle-typical colors (browns, blacks, whites, grays)
-        # Brown range
-        brown_lower = np.array([10, 50, 20])
-        brown_upper = np.array([20, 255, 200])
-        brown_mask = cv2.inRange(hsv, brown_lower, brown_upper)
+        # Human skin tone detection (various ethnicities)
+        skin_lower1 = np.array([0, 20, 70])    # Light skin
+        skin_upper1 = np.array([20, 150, 255])
+        skin_lower2 = np.array([0, 10, 60])    # Very light skin
+        skin_upper2 = np.array([25, 80, 255])
         
-        # Black/gray range  
-        gray_lower = np.array([0, 0, 0])
-        gray_upper = np.array([180, 30, 100])
-        gray_mask = cv2.inRange(hsv, gray_lower, gray_upper)
+        skin_mask1 = cv2.inRange(hsv, skin_lower1, skin_upper1)
+        skin_mask2 = cv2.inRange(hsv, skin_lower2, skin_upper2)
+        skin_mask = cv2.bitwise_or(skin_mask1, skin_mask2)
         
-        # White range
+        skin_ratio = np.sum(skin_mask > 0) / (width * height)
+        
+        # Reject if significant skin tone detected
+        if skin_ratio > 0.15:
+            return False, 0.0, f"Human skin tones detected ({skin_ratio:.2%} of image)"
+        
+        # Dog/pet/other animal rejection criteria
+        # 1. Very bright/unnatural colors (collars, clothing, etc.)
+        saturation = hsv[:,:,1]
+        value = hsv[:,:,2]
+        high_sat_ratio = np.sum(saturation > 230) / (width * height)  # More strict on saturation
+        # Note: Brightness check disabled for now to avoid rejecting valid cattle images
+        # very_bright_ratio = np.sum(value > 254) / (width * height)    # Only reject pure white (255)
+        
+        if high_sat_ratio > 0.15:  # More than 15% extremely saturated colors
+            rejection_reasons.append("Unnatural high color saturation detected")
+        # if very_bright_ratio > 0.5:  # More than 50% pure white pixels
+        #     rejection_reasons.append("Unnatural brightness levels detected")
+        
+        # 2. Detect very pure/artificial colors (red, blue, green collars/clothing)
+        pure_red = cv2.inRange(hsv, np.array([0, 180, 150]), np.array([10, 255, 255]))
+        pure_blue = cv2.inRange(hsv, np.array([100, 180, 150]), np.array([130, 255, 255]))
+        pure_green = cv2.inRange(hsv, np.array([40, 180, 150]), np.array([80, 255, 255]))
+        
+        artificial_color_ratio = (np.sum(pure_red > 0) + np.sum(pure_blue > 0) + np.sum(pure_green > 0)) / (width * height)
+        if artificial_color_ratio > 0.08:  # More than 8% artificial colors
+            rejection_reasons.append("Artificial colors detected (likely clothing/collars)")
+        
+        # Cattle-specific color analysis (more refined)
+        # Multiple brown ranges (cattle have varied brown tones)
+        brown_masks = []
+        brown_ranges = [
+            ([8, 50, 20], [25, 255, 200]),    # Light brown
+            ([5, 100, 50], [15, 255, 150]),   # Dark brown
+            ([15, 30, 80], [25, 180, 180])    # Tan/beige
+        ]
+        
+        total_brown_ratio = 0
+        for lower, upper in brown_ranges:
+            mask = cv2.inRange(hsv, np.array(lower), np.array(upper))
+            total_brown_ratio += np.sum(mask > 0) / (width * height)
+        
+        # Black/dark colors (cattle often have black markings)
+        black_lower = np.array([0, 0, 0])
+        black_upper = np.array([180, 255, 60])  # Slightly increased for dark brown
+        black_mask = cv2.inRange(hsv, black_lower, black_upper)
+        black_ratio = np.sum(black_mask > 0) / (width * height)
+        
+        # White/light colors (common in cattle markings)
         white_lower = np.array([0, 0, 200])
         white_upper = np.array([180, 30, 255])
         white_mask = cv2.inRange(hsv, white_lower, white_upper)
+        white_ratio = np.sum(white_mask > 0) / (width * height)
         
-        # Calculate color coverage
-        total_pixels = width * height
-        brown_ratio = np.sum(brown_mask > 0) / total_pixels
-        gray_ratio = np.sum(gray_mask > 0) / total_pixels  
-        white_ratio = np.sum(white_mask > 0) / total_pixels
-        cattle_color_ratio = brown_ratio + gray_ratio + white_ratio
+        cattle_color_ratio = total_brown_ratio + black_ratio + white_ratio
         
-        # Method 4: Aspect ratio check (cattle are typically wider than tall)
+        # Stricter color scoring
+        if cattle_color_ratio > 0.5:
+            confidence_score += 0.3
+            reasons.append("Strong cattle-typical colors")
+        elif cattle_color_ratio > 0.3:
+            confidence_score += 0.2
+            reasons.append("Good cattle colors present")
+        elif cattle_color_ratio > 0.15:
+            confidence_score += 0.1
+            reasons.append("Some cattle colors present")
+        else:
+            rejection_reasons.append("Insufficient cattle-typical colors")
+        
+        # METHOD 3: Texture Analysis
+        # Calculate Local Binary Pattern-like texture measure
+        kernel = np.array([[-1,-1,-1], [-1,8,-1], [-1,-1,-1]])
+        texture_response = cv2.filter2D(gray, -1, kernel)
+        texture_variance = np.var(texture_response)
+        
+        # Cattle have varied texture (fur, patterns)
+        if texture_variance > 500:
+            confidence_score += 0.15
+            reasons.append("Good texture variation detected")
+        elif texture_variance < 100:
+            rejection_reasons.append("Insufficient texture variation")
+        
+        # METHOD 4: Aspect Ratio and Proportions
         aspect_ratio = width / height
         
-        # Scoring system
-        confidence_score = 0.0
-        reasons = []
-        
-        # Edge density scoring (animals have moderate edge density)
-        if 0.05 <= edge_density <= 0.25:
-            confidence_score += 0.3
-            reasons.append("Good edge structure detected")
-        elif edge_density > 0.25:
-            confidence_score += 0.1
-            reasons.append("High detail image")
-        
-        # Color scoring (cattle typically have earth tones)
-        if cattle_color_ratio > 0.3:
-            confidence_score += 0.4
-            reasons.append("Cattle-typical colors detected")
-        elif cattle_color_ratio > 0.15:
+        # Cattle aspect ratios (wider than tall, but not extreme)
+        if 1.2 <= aspect_ratio <= 3.0:
             confidence_score += 0.2
-            reasons.append("Some animal-like colors present")
+            reasons.append("Appropriate cattle proportions")
+        elif aspect_ratio < 0.7:  # Too tall (might be human)
+            rejection_reasons.append("Aspect ratio too tall for cattle")
+        elif aspect_ratio > 4.0:  # Too wide
+            rejection_reasons.append("Aspect ratio too wide")
         
-        # Aspect ratio scoring
-        if 0.8 <= aspect_ratio <= 2.5:
-            confidence_score += 0.2
-            reasons.append("Appropriate aspect ratio")
+        # METHOD 5: Edge Density Analysis
+        edge_density = np.sum(edges > 0) / (width * height)
         
-        # Contrast scoring
-        if contrast > 25:
+        # Cattle have moderate edge density
+        if 0.05 <= edge_density <= 0.30:
             confidence_score += 0.1
-            reasons.append("Good image contrast")
+            reasons.append("Appropriate edge density")
+        elif edge_density > 0.40:  # Too many edges (might be complex background or human clothing)
+            rejection_reasons.append("Too much detail/complexity")
         
-        # Final decision
-        is_cattle = confidence_score >= 0.5
-        reason = "; ".join(reasons) if reasons else "Insufficient cattle characteristics"
+        # METHOD 6: Size and Scale Analysis
+        # Look for cattle-like proportions in the main object
+        if contours:
+            # Get bounding rectangle of largest contour
+            x, y, w, h = cv2.boundingRect(largest_contour)
+            object_aspect = w / h
+            object_coverage = (w * h) / (width * height)
+            
+            # Object should fill reasonable portion of image
+            if object_coverage > 0.1:
+                confidence_score += 0.1
+                reasons.append("Good object size in frame")
+            
+            # Cattle body proportions
+            if 1.5 <= object_aspect <= 3.5:
+                confidence_score += 0.1
+                reasons.append("Good body proportions")
         
-        return is_cattle, confidence_score, reason
+        # FINAL DECISION with balanced thresholds
+        # Check for rejection criteria first
+        if rejection_reasons:
+            return False, 0.0, f"Not cattle: {'; '.join(rejection_reasons)}"
+        
+        # Balanced confidence threshold
+        is_cattle = confidence_score >= 0.6
+        
+        if not is_cattle:
+            return False, confidence_score, "Insufficient cattle characteristics detected"
+        
+        reason = f"Cattle detected: {'; '.join(reasons)}"
+        return True, confidence_score, reason
         
     except ImportError:
-        # Fallback: Basic PIL-based validation if OpenCV not available
+        # Enhanced fallback: Better PIL-based validation when OpenCV not available
         try:
-            # Basic checks using PIL only
             width, height = image.size
             
             if width < 100 or height < 100:
                 return False, 0.0, "Image resolution too low"
             
-            # Convert to grayscale and check basic properties
+            # Convert to different color spaces for analysis
             gray = image.convert('L')
+            rgb_array = np.array(image)
+            
+            # Basic brightness check
             pixels = list(gray.getdata())
             mean_brightness = sum(pixels) / len(pixels)
             
             if mean_brightness < 10 or mean_brightness > 250:
                 return False, 0.0, "Image too dark or overexposed"
             
-            # Basic aspect ratio check
+            # Enhanced aspect ratio check
             aspect_ratio = width / height
-            if 0.5 <= aspect_ratio <= 3.0:
-                return True, 0.6, "Basic image validation passed"
+            if aspect_ratio < 0.7:  # Too tall - likely human
+                return False, 0.2, "Aspect ratio suggests non-cattle subject"
+            elif aspect_ratio > 4.0:  # Too wide
+                return False, 0.2, "Aspect ratio too extreme for cattle"
+            
+            # Basic color analysis for skin tone detection
+            if len(rgb_array.shape) == 3:  # Color image
+                # Simple skin tone detection in RGB
+                r_channel = rgb_array[:,:,0]
+                g_channel = rgb_array[:,:,1]
+                b_channel = rgb_array[:,:,2]
+                
+                # Skin tone conditions (simplified)
+                skin_mask = (r_channel > g_channel) & (g_channel > b_channel) & (r_channel > 95) & (g_channel > 40) & (b_channel > 20)
+                skin_ratio = np.sum(skin_mask) / (width * height)
+                
+                if skin_ratio > 0.15:
+                    return False, 0.0, "Possible human skin tones detected"
+            
+            # Check texture variation
+            contrast = np.std(pixels)
+            if contrast < 10:
+                return False, 0.3, "Image lacks texture variation typical of cattle"
+            
+            # If passes basic checks, allow with moderate confidence
+            if 1.0 <= aspect_ratio <= 3.5 and contrast > 20:
+                return True, 0.7, "Basic cattle validation passed (OpenCV unavailable)"
             else:
-                return False, 0.3, "Unusual aspect ratio for cattle"
+                return True, 0.5, "Minimal validation only (OpenCV unavailable)"
                 
         except Exception as e:
-            # Ultimate fallback - allow image but with warning
-            return True, 0.5, f"Basic validation only (OpenCV unavailable): {str(e)}"
+            # Ultimate fallback - be more conservative
+            return True, 0.4, f"Basic validation only: {str(e)}"
     
     except Exception as e:
-        # Error in validation - be conservative and allow
-        return True, 0.5, f"Validation error (proceeding): {str(e)}"
+        # Error in validation - be conservative but allow
+        return True, 0.4, f"Validation error (proceeding cautiously): {str(e)}"
 
 def predict_breed_ml(image, model, breed_classes, device):
-    """ML-based breed prediction with cattle validation"""
+    """ML-based breed prediction with enhanced cattle validation"""
     try:
         # First validate if image contains cattle
         is_cattle, confidence, reason = validate_cattle_image(image)
         
         if not is_cattle:
-            return None, None, None, f"❌ **Not a cattle/buffalo image**: {reason}"
+            error_msg = f"❌ **Image Rejected**: {reason}\n\n"
+            error_msg += "**Please upload an image containing:**\n"
+            error_msg += "• 🐄 Cattle (cows, bulls, oxen)\n"
+            error_msg += "• 🐃 Buffalo (water buffalo)\n\n"
+            error_msg += "**Avoid images with:**\n"
+            error_msg += "• 🚫 Humans or people\n"
+            error_msg += "• 🚫 Dogs, cats, or other pets\n"
+            error_msg += "• 🚫 Other animals (goats, sheep, horses, etc.)\n"
+            error_msg += "• 🚫 Objects, landscapes, or buildings"
+            return None, None, None, error_msg
         
         transform = get_image_transform()
         image_rgb = image.convert("RGB")
@@ -716,19 +853,29 @@ def predict_breed_ml(image, model, breed_classes, device):
         breed = breed_classes[pred_idx]
         conf = float(probs[pred_idx])
         
-        return breed, conf, probs, f"✅ **Cattle detected** ({confidence:.1%} confidence): {reason}"
+        validation_msg = f"✅ **Cattle Detected** ({confidence:.1%} confidence): {reason}"
+        return breed, conf, probs, validation_msg
         
     except Exception as e:
         st.error(f"Prediction error: {str(e)}")
         return None, None, None, f"Error: {str(e)}"
 
 def predict_breed_demo(image, breed_classes):
-    """Demo prediction function with cattle validation"""
+    """Demo prediction function with enhanced cattle validation"""
     # First validate if image contains cattle
     is_cattle, confidence, reason = validate_cattle_image(image)
     
     if not is_cattle:
-        return None, None, None, f"❌ **Not a cattle/buffalo image**: {reason}"
+        error_msg = f"❌ **Image Rejected**: {reason}\n\n"
+        error_msg += "**Please upload an image containing:**\n"
+        error_msg += "• 🐄 Cattle (cows, bulls, oxen)\n"
+        error_msg += "• 🐃 Buffalo (water buffalo)\n\n"
+        error_msg += "**Avoid images with:**\n"
+        error_msg += "• 🚫 Humans or people\n"
+        error_msg += "• 🚫 Dogs, cats, or other pets\n"
+        error_msg += "• 🚫 Other animals (goats, sheep, horses, etc.)\n"
+        error_msg += "• 🚫 Objects, landscapes, or buildings"
+        return None, None, None, error_msg
     
     np.random.seed(hash(str(image.size)) % 2**32)  # Consistent results per image
     probs = np.random.random(len(breed_classes))
@@ -737,7 +884,8 @@ def predict_breed_demo(image, breed_classes):
     breed = breed_classes[pred_idx]
     conf = float(probs[pred_idx])
     
-    return breed, conf, probs, f"✅ **Cattle detected** ({confidence:.1%} confidence): {reason}"
+    validation_msg = f"✅ **Cattle Detected** ({confidence:.1%} confidence): {reason}"
+    return breed, conf, probs, validation_msg
 
 def get_breed_metadata(breed, breed_info):
     """Get comprehensive breed metadata with clean, simple formatting"""

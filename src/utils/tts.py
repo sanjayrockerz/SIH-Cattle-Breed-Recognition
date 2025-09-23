@@ -25,15 +25,23 @@ LANG_MAP = {
 def tts_read_aloud(text: str, key: str = "tts", language: str = "English"):
     """
     Streamlit button to read aloud any text using Google TTS.
+    Uses session state for reliable playback after rerun.
     Args:
         text (str): Text to read aloud
         key (str): Unique key for Streamlit widget
         language (str): Language for TTS (English, Hindi, Tamil, Telugu, Kannada)
     """
+    audio_key = f"tts_audio_{key}"
+    play_key = f"tts_play_{key}"
     if st.button("🔊 Read aloud", key=key):
         lang_code = LANG_MAP.get(language, "en")
         tts = gTTS(text, lang=lang_code)
         mp3_fp = BytesIO()
         tts.write_to_fp(mp3_fp)
         mp3_fp.seek(0)
-        st.audio(mp3_fp.read(), format="audio/mp3")
+        st.session_state[audio_key] = mp3_fp.read()
+        st.session_state[play_key] = True
+    # Play audio if available and play flag is set
+    if st.session_state.get(play_key) and st.session_state.get(audio_key):
+        st.audio(st.session_state[audio_key], format="audio/mp3")
+        st.session_state[play_key] = False
